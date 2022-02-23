@@ -9,6 +9,7 @@ export default function App() {
 
       <Text style={styles.instructions} >
       To share a photo from your phone with a friend, just press the button below!
+      Test de git.
       </Text>
     </View>
   );
