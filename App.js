@@ -1,21 +1,45 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { ImageBackground } from 'react-native-web';
-import fond from './assets/fond.jpg'
-
+import * as React from "react";
+import { Image, StyleSheet, Text, View ,ImageBackground} from 'react-native';
+import fond from './assets/fond.jpg';
+import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './screens/Login.js';
+import Home from './screens/Home'
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.image} source={fond} resizeMode="cover"  blurRadius = {3}>
-      
-      <Text style={styles.instructions} >
-      To share a photo from your phone with a friend, just press the button below!
-      Test de git.
-      </Text>
-      </ImageBackground>
-      
-    </View>
-  );
+
+
+  
+
+  function DetailsScreen() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+      </View>
+    );
+  }
+
+  
+  const Stack = createNativeStackNavigator();
+
+    const [loaded] = useFonts({
+      Pacifico: require('./assets/fonts/Pacifico.ttf'),
+    });
+    
+    if (!loaded) {
+      return null;
+    }
+
+
+    return (
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Log">
+          <Stack.Screen name="Log" component={Login} options={{ title: 'Connexion' }}/>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    ); 
 }
 
 const styles = StyleSheet.create({
@@ -27,10 +51,17 @@ const styles = StyleSheet.create({
   image: {
     flex:1,
     justifyContent:'center',
+    width: '100%',
+    height:'100%',
   },
   instructions: {
     color: '#888',
     fontSize: 18,
     marginHorizontal: 15,
-  }, 
+  },
+  texte: {
+    fontFamily:'Pacifico',
+    textAlign:'center',
+    fontSize: 50,
+  }
 });
