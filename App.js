@@ -6,15 +6,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
 import Home from './screens/Home'
+import MenuCool from './components/MenuCool'
 export default function App() {
 
 
   
 
-  function DetailsScreen() {
+  function DetailsScreen({ navigation }) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
+      <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{flex:2}}>Details Screen</Text>
+        <MenuCool navigation= {navigation}/>
       </View>
     );
   }

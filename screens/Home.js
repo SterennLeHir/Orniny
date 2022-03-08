@@ -1,34 +1,43 @@
 import * as React from "react";
 import { Text, View ,ImageBackground, StyleSheet} from 'react-native';
+import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 
-export default function Home({navigation}) {
+export default function HomeScreen({ navigation }) {
+
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.image} source={fond} resizeMode="cover" blurRadius = {10}>
-        <Text>
-            Orniny
-        </Text>
-      </ImageBackground>
+      <View style={styles.bordure}>
+      <MenuCool navigation= {navigation}/>
+      </View>
+      <ImageBackground source={fond} resizeMode="stretch" style={styles.image}>
+      <Text style={styles.text}>Hey bitch :3</Text>
+      
+    </ImageBackground>
+    <View style={styles.bordure}></View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   image: {
-    flex:1,
-    justifyContent:'center',
-    width: '100%',
-    height:'100%',
+    flex: 64,
+    //transform: [{ rotate: "90deg" }],
+    justifyContent: "center"
   },
-  instructions: {
-    color: '#888',
-    fontSize: 18,
-    marginHorizontal: 15,
+  text: {
+    color: "white",
+    fontSize: 42,
+    lineHeight: 84,
+    fontWeight: "bold",
+    textAlign: "center",
   },
+  bordure : {
+    flex: 8,
+    flexDirection: 'row-reverse',
+    backgroundColor: "rgb(68,73,123)"
+  }
 });
+
