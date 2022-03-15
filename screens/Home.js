@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, View ,ImageBackground, StyleSheet} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
+import ListeAliments from '../components/ListeAliments'
 
 export default function HomeScreen({ navigation }) {
 
@@ -15,6 +16,7 @@ export default function HomeScreen({ navigation }) {
       
     </ImageBackground>
     <View style={styles.bordure}></View>
+    
     </View>
   );
 }
