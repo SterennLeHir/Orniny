@@ -1,7 +1,9 @@
 import * as React from "react";
-import { Text, View ,ImageBackground, StyleSheet} from 'react-native';
+import { Image, View ,ImageBackground, StyleSheet} from 'react-native';
 import MenuCool from '../components/MenuCool'
+import Orniny from '../assets/Horniny FAT.png';
 import fond from '../assets/fond.jpg';
+import AlimentsBar from "../assets/class/Aliment";
 
 export default function HomeScreen({ navigation }) {
 
@@ -10,11 +12,15 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.bordure}>
       <MenuCool navigation= {navigation}/>
       </View>
-      <ImageBackground source={fond} resizeMode="stretch" style={styles.image}>
-      <Text style={styles.text}>Hey bitch :3</Text>
-      
-    </ImageBackground>
-    <View style={styles.bordure}></View>
+
+      <ImageBackground source={fond} resizeMode="stretch" style={styles.imageFond}>
+      <Image style={styles.OrninyStyle} source={Orniny} resizeMode = 'contain' />
+     </ImageBackground>
+
+
+    <View style={styles.bordure}>
+      <AlimentsBar />
+    </View>
     </View>
   );
 }
@@ -22,10 +28,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
+  imageFond: {
     flex: 64,
     //transform: [{ rotate: "90deg" }],
-    justifyContent: "center"
+    justifyContent: "flex-end",
+  },
+  OrninyStyle: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end"
   },
   text: {
     color: "white",
