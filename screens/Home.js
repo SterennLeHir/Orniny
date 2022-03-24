@@ -3,6 +3,7 @@ import { Image, View ,ImageBackground, StyleSheet, Text, ScrollView} from 'react
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function Aliment(type, image, ptsPhysique, ptsMental) {
   this.type = type;
@@ -28,7 +29,7 @@ export default function HomeScreen({ navigation }) {
   function AlimentsBar(){
     return(
       <View style = {styles.containerList}>
-      <ScrollView horizontal= {true}>
+      <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
           <DraxView
             style={[styles.centeredContent, styles.draggableBox]}
@@ -50,6 +51,7 @@ export default function HomeScreen({ navigation }) {
   
 
   return (
+    < GestureHandlerRootView style={{flex:1}}>
     <DraxProvider>
     <View style={styles.container}>
       <View style={styles.bordure}>
@@ -141,6 +143,7 @@ export default function HomeScreen({ navigation }) {
     </View>
     </View>
     </DraxProvider>
+    </GestureHandlerRootView>
   );
 }
 const styles = StyleSheet.create({
@@ -151,6 +154,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent:'center',
+  },
+  contentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent:'space-around',
+    alignItems: "center",
+
   },
   PartieGauche: {
     height: "100%",
