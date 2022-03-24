@@ -1,10 +1,8 @@
 import * as React from "react";
 import { Image, View ,ImageBackground, StyleSheet, Text, ScrollView} from 'react-native';
 import MenuCool from '../components/MenuCool'
-import Orniny from '../assets/Horniny FAT.png';
 import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
-import DragNDrop from '../components/DragNDrop'
 
 function Aliment(type, image, ptsPhysique, ptsMental) {
   this.type = type;
@@ -32,8 +30,6 @@ export default function HomeScreen({ navigation }) {
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true}>
       {aliments.map((aliment) => (
-          <Image source = {aliment.image} style = {styles.image} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]} resizeMode = 'contain'></Image>
-         ))}
           <DraxView
             style={[styles.centeredContent, styles.draggableBox]}
             draggingStyle={styles.dragging}
@@ -42,8 +38,9 @@ export default function HomeScreen({ navigation }) {
             dragPayload={'R'}
             longPressDelay={0}
           >
-            <Image source={require('../assets/Pomme.png')} resizeMode="contain" style={styles.OrninyStyle}></Image>
+            <Image source={aliment.image} resizeMode="contain" style={styles.image}data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
+          ))}
       </ScrollView>
       </View>
     )
@@ -121,7 +118,7 @@ export default function HomeScreen({ navigation }) {
             const payload = receivingDrag && receivingDrag.payload;
             return (
               <>
-              <Image source={require("../assets/Horniny FAT.png")} resizeMode="contain" style={styles.OrninyStyle}></Image>
+              <Image source={require("../assets/Orniny_FAT.png")} resizeMode="contain" style={styles.OrninyStyle}></Image>
 
               </>
             );
