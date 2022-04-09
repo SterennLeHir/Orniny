@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 
-export default function MenuCool({navigation}) {
+export default function MenuCool({navigation,params}) {
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
@@ -18,12 +18,12 @@ export default function MenuCool({navigation}) {
   }
 
   const toDetails = () => {
-    navigation.navigate('Details')
+    navigation.navigate('Details',params)
     hideMenu
 }
 
   const toHome = () => {
-    navigation.navigate('Home')
+    navigation.navigate('Home',params)
     hideMenu
 }
 

@@ -2,14 +2,14 @@ import React from 'react';
 import { Image, StyleSheet, Text, View, Button } from 'react-native';
 //import Pacifico from '../assets/fonts/Pacifico.ttf';
 
-function ConnexionCard({navigation}) {
+function ConnexionCard({navigation, params}) {
     return (
         <View style = {styles.card}>
             <Text style = {styles.title}>
                 Orniny
             </Text>
             <View> 
-                <Button title="Connexion" onPress={() => navigation.navigate('Home')} style = {styles.button}/>
+                <Button title="Connexion" onPress={() => navigation.navigate('Home',params)} style = {styles.button}/>
             </View>
            
             

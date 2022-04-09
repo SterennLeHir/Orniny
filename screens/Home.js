@@ -23,9 +23,10 @@ let pomme = new Aliment('sucre', require('../assets/Pomme.png'), 7, -1);
 
 
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ route, navigation }) {
   const [received, setReceived] = React.useState([]);
   const [compteur, setCompteur] = React.useState(0);
+  let Orniny = route.params;
   function AlimentsBar(){
     return(
       <View style = {styles.containerList}>
@@ -55,8 +56,8 @@ export default function HomeScreen({ navigation }) {
     <DraxProvider>
     <View style={styles.container}>
       <View style={styles.bordure}>
-      <Text>{ compteur}</Text>
-      <MenuCool navigation= {navigation}/>
+      <Text>{ Orniny.santePhysique}</Text>
+      <MenuCool navigation= {navigation} params ={Orniny}/>
       </View>
 
       <ImageBackground source={fond} resizeMode="stretch" style = {{flex:64}}>
@@ -120,7 +121,7 @@ export default function HomeScreen({ navigation }) {
             const payload = receivingDrag && receivingDrag.payload;
             return (
               <>
-              <Image source={require("../assets/Orniny_FAT.png")} resizeMode="contain" style={styles.OrninyStyle}></Image>
+              <Image source={Orniny.image} resizeMode="contain" style={styles.OrninyStyle}></Image>
 
               </>
             );
@@ -131,6 +132,7 @@ export default function HomeScreen({ navigation }) {
               event.dragged.payload || '?',
             ]);
             setCompteur(compteur+1);
+            Orniny.santePhysique = Orniny.santePhysique + 1 ;
           }}
         />
        
