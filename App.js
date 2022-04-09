@@ -12,11 +12,12 @@ export default function App() {
 
   
 
-  function DetailsScreen({ navigation }) {
+  function DetailsScreen({ route,navigation }) {
+    let Orniny = route.params;
     return (
       <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{flex:2}}>Details Screen</Text>
-        <MenuCool navigation= {navigation}/>
+        <Text style={{flex:2, alignSelf: 'center', justifyContent: 'center' }}>Details Screen : {Orniny.santePhysique} </Text>
+        <MenuCool navigation= {navigation} params= {Orniny}/>
       </View>
     );
   }
