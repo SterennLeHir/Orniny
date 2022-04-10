@@ -27,6 +27,7 @@ export default function App() {
 
     const [loaded] = useFonts({
       Pacifico: require('./assets/fonts/Pacifico.ttf'),
+      NotoSans: require('./assets/fonts/NotoSans.ttf'),
     });
     
     if (!loaded) {

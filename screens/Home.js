@@ -27,12 +27,14 @@ export default function HomeScreen({ route, navigation }) {
   const [received, setReceived] = React.useState([]);
   const [compteur, setCompteur] = React.useState(0);
   let Orniny = route.params;
+
   function AlimentsBar(){
     return(
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
           <DraxView
+            key = {aliment.image}
             style={[styles.centeredContent, styles.draggableBox]}
             draggingStyle={styles.dragging}
             dragReleasedStyle={styles.dragging}
@@ -40,7 +42,7 @@ export default function HomeScreen({ route, navigation }) {
             dragPayload={'R'}
             longPressDelay={0}
           >
-            <Image source={aliment.image} resizeMode="contain" style={styles.image}data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
+            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={styles.image} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
           ))}
       </ScrollView>
@@ -50,6 +52,17 @@ export default function HomeScreen({ route, navigation }) {
   
   const aliments = [fraise, framboise, chocolat, citrouille, poireau, tomate, pomme]; //tableau des aliments
   
+  function feedOrniny(aliment){
+    Orniny.sasiete = Orniny.sasiete + aliment.sasiete;
+    Orniny.ptsMental = Orniny.ptsMental + aliment.ptsMental;
+    Orniny.ptsPhysique = Orniny.ptsPhysique + aliment.ptsPhysique;
+    if (Orniny.ptsPhysique >= 70){ //si les points de santé sont supérieurs à 70%
+      Orniny.poids = Orniny.poids - 100; // orniny perds 5 kilos
+    }
+    if (Orniny.poids <= 150){ // si Orniny fait moins de 150 kilos
+      Orniny.image = require('../assets/Orniny.png');
+    }
+  }
 
   return (
     < GestureHandlerRootView style={{flex:1}}>
@@ -132,6 +145,7 @@ export default function HomeScreen({ route, navigation }) {
               event.dragged.payload || '?',
             ]);
             setCompteur(compteur+1);
+            feedOrniny(citrouille);
             Orniny.santePhysique = Orniny.santePhysique + 1 ;
           }}
         />
@@ -260,7 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 36,
   },
   desc:{
-    fontFamily:"Noto Sans",
+    fontFamily:"NotoSans",
     fontSize: 20,
     color: "white",
   },

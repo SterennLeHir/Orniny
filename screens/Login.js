@@ -8,11 +8,12 @@ export default function Login({navigation}) {
   let Orniny = {
     image : img,
   santePhysique : 10,
+  santeMentale : 10,
   maxSantePhysique : 100,
   maxSanteMentale : 100,
   santeMentale : 15,
   poids : 200,
-  faim : 0,
+  sasiete : 0,
   }
   return (
     <View style={styles.container}>
