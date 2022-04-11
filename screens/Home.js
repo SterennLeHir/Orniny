@@ -34,8 +34,8 @@ export default function HomeScreen({ route, navigation }) {
   const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
 
   const counterPhy = useRef(new Animated.Value(0)).current;
-  const counterMent = useRef(new Animated.Value(1)).current;
-  const counterSas = useRef(new Animated.Value(2)).current;
+  const counterMent = useRef(new Animated.Value(0)).current;
+  const counterSas = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas) ;
@@ -48,7 +48,7 @@ export default function HomeScreen({ route, navigation }) {
     if (compteurSas >= 100) {
       setCompteurSas(0);
     } 
-  }, [compteurPhy]);
+  }, [compteurPhy,compteurMent,compteurSas]);
 
   const load = (compteurPhy,compteurMent,compteurSas) => {
     Animated.parallel([Animated.timing(counterPhy, {
@@ -98,7 +98,7 @@ const widthSas = counterSas.interpolate({
             draggingStyle={styles.dragging}
             dragReleasedStyle={styles.dragging}
             hoverDraggingStyle={styles.hoverDragging}
-            dragPayload={'R'}
+            dragPayload={aliment}
             longPressDelay={0}
           >
             <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={styles.image} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
@@ -119,7 +119,6 @@ const widthSas = counterSas.interpolate({
     if (Orniny.ptsMental >= 100) Orniny.ptsMental = 0 ;
     if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
     setCompteurPhy(Orniny.ptsPhysique);
-    
     setCompteurMent(Orniny.ptsMental);
     setCompteurSas(Orniny.sasiete);
     if (Orniny.ptsPhysique >= 70){ //si les points de santé sont supérieurs à 70%
@@ -140,9 +139,9 @@ const widthSas = counterSas.interpolate({
       {/* BARRE DU HAUT */}
       <View style={styles.bordureHaut}>
       
-      <View style={{top:'5%',width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
+      <View style={{width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
   
-    <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+    <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
     <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé Physique</Text>
     <View style={styles.progressBarV}>
         <Animated.View
@@ -152,7 +151,7 @@ const widthSas = counterSas.interpolate({
           }></Animated.View>
       </View></View>
 
-      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
       <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Santé Mentale</Text>
       <View style={styles.progressBarJ}>
       
@@ -163,7 +162,7 @@ const widthSas = counterSas.interpolate({
           }></Animated.View>
       </View></View>
 
-      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
       <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Sasiété</Text>
       <View style={styles.progressBarB}>
         <Animated.View
@@ -259,11 +258,7 @@ const widthSas = counterSas.interpolate({
             );
           }}
           onReceiveDragDrop={(event) => {
-            setReceived([
-              ...received,
-              event.dragged.payload || '?',
-            ]);
-            feedOrniny(citrouille);
+            feedOrniny(event.dragged.payload);
           }}
         />
        
