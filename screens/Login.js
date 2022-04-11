@@ -7,8 +7,8 @@ import ConnexionCard from "../components/ConnexionCard";
 export default function Login({navigation}) {
   let Orniny = {
     image : img,
-  santePhysique : 10,
-  santeMentale : 10,
+    ptsPhysique : 10,
+    ptsMental : 10,
   maxSantePhysique : 100,
   maxSanteMentale : 100,
   santeMentale : 15,

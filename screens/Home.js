@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Image, View ,ImageBackground, StyleSheet, Text, ScrollView} from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
@@ -16,17 +17,75 @@ function Aliment(type, image, ptsPhysique, ptsMental) {
 let fraise = new Aliment('sucre', require('../assets/Fraise.png'), 10, 3);
 let framboise =  new Aliment('sucre', require('../assets/framboise.png'), 10, 3);
 let chocolat =  new Aliment('sucre', require('../assets/Chocolat.png'), -1, 10);
-let citrouille = new Aliment('sale', require('../assets/citrouille.png'), 4, 3);
+let citrouille = new Aliment('sale', require('../assets/citrouille.png'), 40, 30);
 let poireau = new Aliment('sale', require('../assets/poireau.png'), 5, -1);
 let tomate = new Aliment('sale', require('../assets/tomate.png'), 5, 3);
 let pomme = new Aliment('sucre', require('../assets/Pomme.png'), 7, -1);
 
 
+  
+
 
 export default function HomeScreen({ route, navigation }) {
-  const [received, setReceived] = React.useState([]);
-  const [compteur, setCompteur] = React.useState(0);
   let Orniny = route.params;
+  const [received, setReceived] = React.useState([]);
+  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
+  const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
+  const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
+
+  const counterPhy = useRef(new Animated.Value(0)).current;
+  const counterMent = useRef(new Animated.Value(1)).current;
+  const counterSas = useRef(new Animated.Value(2)).current;
+
+  useEffect(() => {
+    load(compteurPhy,compteurMent,compteurSas) ;
+    if (compteurPhy >= 100) {
+      setCompteurPhy(0);
+    }
+    if (compteurMent >= 100) {
+      setCompteurMent(0);
+    } 
+    if (compteurSas >= 100) {
+      setCompteurSas(0);
+    } 
+  }, [compteurPhy]);
+
+  const load = (compteurPhy,compteurMent,compteurSas) => {
+    Animated.parallel([Animated.timing(counterPhy, {
+      toValue: compteurPhy,
+      duration: 500,
+      useNativeDriver: false,
+    }), Animated.timing(counterMent, {
+      toValue: compteurMent,
+      duration: 500,
+      useNativeDriver: false,
+    }),Animated.timing(counterSas, {
+      toValue: compteurSas,
+      duration: 500,
+      useNativeDriver: false,
+    })]).start();
+  };
+  
+
+  const widthPhy = counterPhy.interpolate({
+  inputRange: [0, 100],
+  outputRange: ["0%", "100%"],
+  extrapolate: "clamp"
+})
+const widthMent = counterMent.interpolate({
+  inputRange: [0, 100],
+  outputRange: ["0%", "100%"],
+  extrapolate: "clamp"
+})
+const widthSas = counterSas.interpolate({
+  inputRange: [0, 100],
+  outputRange: ["0%", "100%"],
+  extrapolate: "clamp"
+})
+
+
+
+  
 
   function AlimentsBar(){
     return(
@@ -56,6 +115,13 @@ export default function HomeScreen({ route, navigation }) {
     Orniny.sasiete = Orniny.sasiete + aliment.sasiete;
     Orniny.ptsMental = Orniny.ptsMental + aliment.ptsMental;
     Orniny.ptsPhysique = Orniny.ptsPhysique + aliment.ptsPhysique;
+    if (Orniny.ptsPhysique >= 100) Orniny.ptsPhysique = 0 ;
+    if (Orniny.ptsMental >= 100) Orniny.ptsMental = 0 ;
+    if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
+    setCompteurPhy(Orniny.ptsPhysique);
+    
+    setCompteurMent(Orniny.ptsMental);
+    setCompteurSas(Orniny.sasiete);
     if (Orniny.ptsPhysique >= 70){ //si les points de santé sont supérieurs à 70%
       Orniny.poids = Orniny.poids - 100; // orniny perds 5 kilos
     }
@@ -67,11 +133,64 @@ export default function HomeScreen({ route, navigation }) {
   return (
     < GestureHandlerRootView style={{flex:1}}>
     <DraxProvider>
+
+      
     <View style={styles.container}>
-      <View style={styles.bordure}>
-      <Text>{ Orniny.santePhysique}</Text>
+
+      {/* BARRE DU HAUT */}
+      <View style={styles.bordureHaut}>
+      
+      <View style={{top:'5%',width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
+  
+    <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé Physique</Text>
+    <View style={styles.progressBarV}>
+        <Animated.View
+          style={
+            ([StyleSheet.absoluteFill], 
+            { backgroundColor: "rgb(87,241,167)", width:widthPhy })
+          }></Animated.View>
+      </View></View>
+
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Santé Mentale</Text>
+      <View style={styles.progressBarJ}>
+      
+        <Animated.View
+          style={
+            ([StyleSheet.absoluteFill], 
+            { backgroundColor: 'rgb(255,251,162)', width:widthMent })
+          }></Animated.View>
+      </View></View>
+
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",alignItems:'center',flexGrow:1}}>
+      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Sasiété</Text>
+      <View style={styles.progressBarB}>
+        <Animated.View
+          style={
+            ([StyleSheet.absoluteFill], 
+            { backgroundColor: "rgb(122,213,252)", width:widthSas })
+          }></Animated.View>
+      </View></View>
+      </View>
+      
+      <View style={{flexGrow:1,height:'100%',justifyContent:'center',alignItems:'center',flexDirection: 'row'}}>
+        <Text style={[styles.titre,styles.vert]}>O</Text>
+        <Text style={[styles.titre,styles.bleu]}>r</Text>
+        <Text style={[styles.titre,styles.rouge]}>n</Text>
+        <Text style={[styles.titre,styles.jaune]}>i</Text>
+        <Text style={[styles.titre,styles.vert]}>n</Text>
+        <Text style={[styles.titre,styles.bleu]}>y</Text>
+
+      </View>
+
+      <View style={{width:'35%',height:'100%',flexDirection: 'row-reverse'}}>
       <MenuCool navigation= {navigation} params ={Orniny}/>
       </View>
+
+      </View>
+
+      {/* CONTENU PRINCIPAL */}
 
       <ImageBackground source={fond} resizeMode="stretch" style = {{flex:64}}>
 
@@ -144,19 +263,19 @@ export default function HomeScreen({ route, navigation }) {
               ...received,
               event.dragged.payload || '?',
             ]);
-            setCompteur(compteur+1);
             feedOrniny(citrouille);
-            Orniny.santePhysique = Orniny.santePhysique + 1 ;
           }}
         />
        
       </View>
      </ImageBackground>
 
-
+    
+    {/* BARRE DU BAS */}
     <View style={styles.bordure}>
       <AlimentsBar />
     </View>
+
     </View>
     </DraxProvider>
     </GestureHandlerRootView>
@@ -231,6 +350,12 @@ const styles = StyleSheet.create({
   bordure : {
     flex: 8,
     flexDirection: 'row-reverse',
+    backgroundColor: "rgb(68,73,123)"
+  },
+  bordureHaut : {
+    flex: 8,
+    justifyContent: 'center',
+    flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
   image: {
@@ -353,6 +478,36 @@ const styles = StyleSheet.create({
   },
   stagedCount: {
     fontSize: 18,
+  },
+
+  // Barre de chargement
+
+  progressBarJ: {
+    height: 10,
+    flexDirection: 'row',
+    width: '50%',
+    backgroundColor: "rgb(68,73,123)",
+    borderColor: 'rgb(255,251,162)',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  progressBarV: {
+    height: 10,
+    flexDirection: 'row',
+    width: '50%',
+    backgroundColor: "rgb(68,73,123)",
+    borderColor: 'rgb(87,241,167)',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  progressBarB: {
+    height: 10,
+    flexDirection: 'row',
+    width: '50%',
+    backgroundColor: "rgb(68,73,123)",
+    borderColor: "rgb(122,213,252)",
+    borderWidth: 2,
+    borderRadius: 5,
   },
 });
 

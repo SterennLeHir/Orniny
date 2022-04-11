@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { View, Text } from 'react-native';
+import { View, Image, TouchableHighlight} from 'react-native';
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 
@@ -31,7 +31,9 @@ export default function MenuCool({navigation,params}) {
     <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
       <Menu
         visible={visible}
-        anchor={<Text onPress={showMenu}>Show menu</Text>}
+        anchor={<TouchableHighlight onPress={showMenu}>
+        <Image source={require('../assets/burger.png')} resizeMode="stretch" style={{width:70,height:40,right:20}}></Image>
+        </TouchableHighlight>}
         onRequestClose={hideMenu}
       >
         <MenuItem onPress={toLogin}>
