@@ -26,6 +26,10 @@ export default function MenuCool({navigation,params}) {
     navigation.navigate('Home',params)
     hideMenu
 }
+  const toSport = () => {
+  navigation.navigate('Sport',params)
+  hideMenu
+}
 
   return (
     <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
@@ -44,6 +48,9 @@ export default function MenuCool({navigation,params}) {
       </MenuItem>
       <MenuItem onPress={toDetails}>
             Details
+      </MenuItem>
+      <MenuItem onPress={toSport}>
+            Sport
       </MenuItem>
         
       </Menu>
