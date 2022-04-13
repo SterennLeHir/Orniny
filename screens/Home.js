@@ -102,9 +102,9 @@ const widthSas = counterSas.interpolate({
             dragPayload={aliment}
             longPressDelay={0}
           >
-            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:"50%",width:"100%"}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
+            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:25,width:25}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
-          <Text style= {{position:"absolute",left:"10%",top:"80%",height:"10%",width:"85%",fontFamily:"Roboto", fontSize: 12,color:"rgb(255,255,255)"}}>{aliment.nom}</Text>
+          <Text style= {{position:"absolute",left:"10%",top:22,height:"10%",width:"85%",fontFamily:"Roboto", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
           </View>
           ))}
       </ScrollView>
