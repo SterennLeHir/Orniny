@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button } from 'react-native';
-import { Dimensions } from 'react-native-web';
+import { Dimensions, TouchableWithoutFeedback } from 'react-native-web';
 
 import logo from './assets/logo.png'
 
@@ -14,8 +14,9 @@ export default function App() {
         blurRadius={40}>
            <FlatList
           data={DATA}
-          renderItem={renderIte}
-          keyExtractor = {item=>item.id}/>
+          renderItem={renderIte}>
+
+          </FlatList>
       </ImageBackground>
     </View>
   )
@@ -85,21 +86,10 @@ const DATA = [
 
 const renderIte = ({ item }) => {
   return (
-    <Card>
-      <CardSection>
-        <View style={style.container}>
-          <Image
-            style={style.Imagelist}
-            source={item.image1}
-          >
-          </Image>
-        </View>
-        <View style={style.container}>
-          <Text style={style.title}>{item.title}</Text>
-          <Text>{item.id}</Text>
-        </View>
-      </CardSection>
-    </Card>
+    <View>
+<Text style = {[{fontFamily:"Pacifico",fontSize:20,}]}>{item.title}</Text>
+<Image source={item.image1} resizeMode="contain" style={{width:"60%",height:"60%"}}/>
+    </View>
 
   );  
 
