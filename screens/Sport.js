@@ -207,7 +207,7 @@ const [quelSport, setQuelSport] = React.useState('');
             <View style = {{height:"80%",width:"55%",position:"absolute",right:"2%",top:"10%",backgroundColor:"rgb(68,73,123)",borderRadius:5,alignItems:"center",justifyContent:"center"}}> 
             <TextInput
         style={{height:"90%",width:"90%",fontFamily:"Pacifico", fontSize: 20,color:"rgb(255,255,255)"}}
-        placeholder="Ecrivez ici"
+        placeholder="0"
         placeholderTextColor="rgb(245,245,245)"
         onChangeText={newText => setTextD(newText)}
         defaultValue={textD}
@@ -223,7 +223,7 @@ const [quelSport, setQuelSport] = React.useState('');
             <View style = {{height:"80%",width:"55%",position:"absolute",right:"2%",top:"10%",backgroundColor:"rgb(68,73,123)",borderRadius:5,alignItems:"center",justifyContent:"center"}}> 
             <TextInput
         style={{height:"90%",width:"90%",fontFamily:"Pacifico", fontSize: 20,color:"rgb(255,255,255)"}}
-        placeholder="Ecrivez ici"
+        placeholder="0"
         placeholderTextColor="rgb(245,245,245)"
         onChangeText={newText => setTextKm(newText)}
         defaultValue={textKm}
@@ -234,7 +234,7 @@ const [quelSport, setQuelSport] = React.useState('');
 
         </View>
         <TouchableHighlight style= {(!faitSport) ? {borderRadius: 5, width:"75%", height:"27%", backgroundColor: "rgb(122,213,252)",borderWidth:3,borderColor:"rgb(245,123,123)"} : {borderRadius: 5, width:"75%", height:"27%", backgroundColor: "rgb(122,213,252)",borderWidth:3,borderColor:"rgb(245,123,123)", opacity:0.4,} }
-        onPress = {() => sport(quelSport)} disable = {!faitSport}>
+        onPress = {() => sport(quelSport)} disable = {faitSport}>
         <View style = {{flex:1,alignItems:"center", justifyContent:"center",backgroundColor:"rgb(68,73,123)"}}> 
             <Text style={{fontFamily:"Pacifico", fontSize: 30,color:"rgb(245,123,123)"}}>Faire du sport</Text>
         </View>
