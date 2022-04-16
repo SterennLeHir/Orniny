@@ -27,10 +27,10 @@ export default function App() {
         source={require('./assets/fond.jpg')}
         blurRadius={40}>
              <View style = {styles.titreSport}>
-        <Text style={[{fontFamily:"Pacifico", fontSize: 15,},styles.vert]}>Les </Text>
-        <Text style={[{fontFamily:"Pacifico", fontSize: 15,},styles.bleu]}>vidéos </Text>
-        <Text style={[{fontFamily:"Pacifico", fontSize: 15,},styles.rouge]}>d'</Text>
-        <Text style={[{fontFamily:"Pacifico", fontSize: 15,},styles.jaune]}>Orniny</Text>
+        <Text style={[{fontFamily:"Pacifico", fontSize: 30,},styles.vert]}>Les </Text>
+        <Text style={[{fontFamily:"Pacifico", fontSize: 30,},styles.bleu]}>vidéos </Text>
+        <Text style={[{fontFamily:"Pacifico", fontSize: 30,},styles.rouge]}>d'</Text>
+        <Text style={[{fontFamily:"Pacifico", fontSize: 30,},styles.jaune]}>Orniny</Text>
     </View>
     
     
@@ -59,7 +59,7 @@ const DATA = [
     petittext2 :" bienfaits de la tomate",
     image1: require("./assets/tomate.png"),
     imageminiature: "./assets/tomate.png",
-    link: "https://www.youtube.com/watch?v=Td2bsJIaC5M&list=RDMMTd2bsJIaC5M&start_radio=1",
+    link: "https://www.youtube.com",
   },
   {
     id: 'citrouille',
@@ -69,7 +69,7 @@ const DATA = [
     title: ' La citrouille',
     image1: require("./assets/citrouille.png"),
     imageminiature: "./assets/citrouille.png",
-    link: "https://www.youtube.com/watch?v=2s5KNg_5_LA",
+    link: "https://www.youtube.com",
   },
   {
     id: 'Poireau',
@@ -79,18 +79,18 @@ const DATA = [
     petittext2 :" bienfaits du poireau",
     image1: require("./assets/poireau.png"),
     imageminiature: "./assets/poireau.png",
-    link: "https://www.youtube.com/watch?v=Td2bsJIaC5M&list=RDMMTd2bsJIaC5M&start_radio=1",
+    link: "https://www.youtube.com",
 
   },
   {
     id: 'framboise',
     key: '4',
-    title: ' la framboise',
+    title: ' La framboise',
     petittext1:" Orniny vous montre les",
     petittext2 :" bienfaits de la framboise",
     image1: require("./assets/framboise.png"),
     imageminiature: "./assets/framboise.png",
-    link: "https://www.youtube.com/watch?v=Td2bsJIaC5M&list=RDMMTd2bsJIaC5M&start_radio=1",
+    link: "https://www.youtube.com",
 
 
   }
@@ -111,7 +111,7 @@ const renderIte = ({ item }) => {
       <Button
       title="voir la vidéo"
       onPress={()=>Linking.openURL(item.link)}
-  
+      color="rgb(122,213,252)"
     >
     </Button>
       </View>
@@ -179,7 +179,7 @@ alignSelf:"center"
     height: windowHeight * 1,
   },
 casebackground:{
-
+borderRadius:5,
 backgroundColor:"rgba(68,73,123,1)",
 width:"80%",
 height:"70%",
@@ -189,7 +189,7 @@ flexDirection:"row"
 },
   Imagelist: {
     
-    
+    marginLeft:"5%",
     width: "10%",
     height: "100%",
     alignItems:"center",
@@ -205,7 +205,7 @@ flexDirection:"row"
   titreSport: {
     
     
-    width:"30%",
+    width:"40%",
     height:"10%",
     marginTop:"2%",
     marginBottom:"2%",
