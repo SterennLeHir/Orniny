@@ -6,45 +6,38 @@ import logo from './assets/logo.png'
 
 export default function App() {
   return (
+    <View>
+    <View style={styles.bordureHaut}>
+    <View style={{flexGrow:1,height:'100%',justifyContent:'center',alignItems:'center',flexDirection: 'row'}}>
+        <Text style={[styles.titre,styles.vert]}>O</Text>
+        <Text style={[styles.titre,styles.bleu]}>r</Text>
+        <Text style={[styles.titre,styles.rouge]}>n</Text>
+        <Text style={[styles.titre,styles.jaune]}>i</Text>
+        <Text style={[styles.titre,styles.vert]}>n</Text>
+        <Text style={[styles.titre,styles.bleu]}>y</Text>
+    </View>
+    <View style={{height:"100%",position:"absolute",right:"2%"}}>
+    </View>
+    </View>
 
-    <View style={styles.container}>
+       <View style={styles.container}>
+
       <ImageBackground
         style={styles.back}
         source={require('./assets/fond.jpg')}
         blurRadius={40}>
-           <FlatList
+          <FlatList
           data={DATA}
           renderItem={renderIte}>
-
-          </FlatList>
+            </FlatList>
       </ImageBackground>
     </View>
+    </View>
+    
   )
 }
 
-const videoDetails = ({ item }) => {
-  const { title, link, image1, id } = item;
-  const {container,Imagelist,titre } = styles;
 
-  return (
-    <Card>
-      <CardSection>
-        <View style={style.container}>
-          <Image
-            style={style.Imagelist}
-            source={item.image1}
-          >
-          </Image>
-        </View>
-        <View style={style.container}>
-          <Text style={style.title}>{item.title}</Text>
-          <Text>{item.id}</Text>
-        </View>
-      </CardSection>
-    </Card>
-
-  )
-} 
 
 const DATA = [
   {
@@ -86,11 +79,17 @@ const DATA = [
 
 const renderIte = ({ item }) => {
   return (
-    <View>
+    <View style={styles.casebackground} >
+      <Image source={item.image1} resizeMode="contain" style={{width:"60%",height:"60%"}}/>
 <Text style = {[{fontFamily:"Pacifico",fontSize:20,}]}>{item.title}</Text>
-<Image source={item.image1} resizeMode="contain" style={{width:"60%",height:"60%"}}/>
-    </View>
+<Button
+style={styles.Button}
+      Title="Voir la vidéo"
+      onPress={Linking.openURL(item.link)}
+    >
 
+    </Button>
+    </View>
   );  
 
 }
@@ -103,11 +102,33 @@ const windowHeight = Dimensions.get('window').height;
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  bordureHaut: {
+    top:0,
+    height:"10%",
+    width:"100%",
+    justifyContent:"center",
+    backgroundColor: "rgb(68,73,123)"
+},
+  titre:{
+    fontFamily:"Pacifico",
+    fontSize: 36,
+},
+vert:{
+    color:"rgb(87,241,167)",
+},
+bleu:{
+ color:"rgb(122,213,252)",
+},
+rouge:{
+ color:"rgb(245,123,123)",
+},
+jaune:{
+ color:"rgb(255,251,162)",
+},
+container: {
+  flex:1,
+  flexDirection:'column',
+  alignItems:"center",
   },
   logo: {
     width: 305,
@@ -122,9 +143,12 @@ const styles = StyleSheet.create({
   back: {
     width: windowWidth * 1,
     height: windowHeight * 1,
-
-
   },
+casebackground:{
+ImageBackground:"rgb(0,0,0)",
+width:"80%",
+height : "20%"
+},
   Imagelist: {
     width: 20,
     height: 15,
@@ -135,6 +159,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#44497B',
     fontSize: 24
 
-  }
+  },
+  titreSport: {
+    width:"30%",
+    height:"10%",
+    marginTop:"2%",
+    marginBottom:"2%",
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection:"row",
+    borderBottomColor:"rgb(87,241,167)",
+    borderBottomWidth:3,
+},
 
 });
