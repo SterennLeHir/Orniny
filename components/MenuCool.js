@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { View, Image, TouchableHighlight} from 'react-native';
+import { View, Image, TouchableHighlight, StyleSheet} from 'react-native';
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 
@@ -17,22 +17,13 @@ export default function MenuCool({navigation,params}) {
       hideMenu
   }
 
-  const toDetails = () => {
-    navigation.navigate('Details',params)
-    hideMenu
-}
-
   const toHome = () => {
     navigation.navigate('Home',params)
     hideMenu
 }
-  const toSport = () => {
-  navigation.navigate('Sport',params)
-  hideMenu
-}
 
   return (
-    <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ height: '100%', color:"rgb(122,213,252)", alignItems: 'center', justifyContent: 'center' }}>
       <Menu
         visible={visible}
         anchor={<TouchableHighlight onPress={showMenu}>
@@ -40,20 +31,19 @@ export default function MenuCool({navigation,params}) {
         </TouchableHighlight>}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={toLogin}>
+      <MenuItem style = {styles.page} onPress={toLogin}>
             Login
       </MenuItem>
-        <MenuItem onPress={toHome}>
+        <MenuItem style = {styles.page} onPress={toHome}>
             Home
-      </MenuItem>
-      <MenuItem onPress={toDetails}>
-            Details
-      </MenuItem>
-      <MenuItem onPress={toSport}>
-            Sport
-      </MenuItem>
-        
+      </MenuItem>        
       </Menu>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  page : {
+    fontFamily:"Pacifico",
+    color:"rgb(87,241,167)",
+  },
+});
