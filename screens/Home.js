@@ -7,7 +7,7 @@ import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
-function Aliment(type, sasiete, image, ptsPhysique, ptsMental) {
+function Aliment(nom,type, sasiete, image, ptsPhysique, ptsMental) {
   this.type = type;
   this.sasiete = sasiete;
   this.image = image;
@@ -18,33 +18,26 @@ function Aliment(type, sasiete, image, ptsPhysique, ptsMental) {
 
 
 //Entrées type 1
-let pate = new Aliment(1, 25, require('../assets/Pate.png'), 10, 33); //aliment très apprécié
-let carottes =  new Aliment(1, 10, require('../assets/Carottes.png'), 20, 10); // aliment pas apprécié
-let betteraves =  new Aliment(1, 15, require('../assets/Betteraves.png'), 20, 10); // aliment pas apprécié
-let saucisson =  new Aliment(1, 10, require('../assets/Saucisson.png'), 10, 25); // aliment apprécié
+let pate = new Aliment("Paté",1, 25, require('../assets/Pate.png'), 10, 33); //aliment très apprécié
+let carottes =  new Aliment("Carrotes rapées",1, 10, require('../assets/Carottes.png'), 20, 10); // aliment pas apprécié
+let betteraves =  new Aliment("Betteraves",1, 15, require('../assets/Betteraves.png'), 20, 10); // aliment pas apprécié
+let saucisson =  new Aliment("Saucisson",1, 10, require('../assets/Saucisson.png'), 10, 25); // aliment apprécié
 //Plats type 2
-let steak = new Aliment(2, 60, require('../assets/SteakHaricots.png'), 45, 15); // aliment bof
-let pates = new Aliment(2, 65, require('../assets/PatesBolognaises.png'), 35, 25); // aliment apprécié
-let hamburger = new Aliment(2, 70, require('../assets/HamburgerFrites.png'), 20, 33); //aliment très apprécié
-let riz = new Aliment(2, 60, require('../assets/RizDinde.png'), 40, 15); // aliment bof
-let poisson = new Aliment(2, 60, require('../assets/PoissonEpinards.png'), 45, 10); // aliment pas apprécié
-let salade = new Aliment(2, 50, require('../assets/SaladeComposee.png'), 50, 10); // aliment pas apprécié
+let steak = new Aliment("Steak haricots verts",2, 60, require('../assets/SteakHaricots.png'), 45, 15); // aliment bof
+let pates = new Aliment("Pates bolognaises",2, 65, require('../assets/PatesBolognaises.png'), 35, 25); // aliment apprécié
+let hamburger = new Aliment("Hamburger frites",2, 70, require('../assets/HamburgerFrites.png'), 20, 33); //aliment très apprécié
+let riz = new Aliment("Riz dinde",2, 60, require('../assets/RizDinde.png'), 40, 15); // aliment bof
+let poisson = new Aliment("Poisson épinards",2, 60, require('../assets/PoissonEpinards.png'), 45, 10); // aliment pas apprécié
+let salade = new Aliment("Salade composée",2, 50, require('../assets/SaladeComposee.png'), 50, 10); // aliment pas apprécié
 //Desserts type 3
-let moelleux = new Aliment(3, 20, require('../assets/MoelleuxAuChocolat.png'), 5, 33); //aliment très apprécié
-let saladeFruits = new Aliment(3, 10, require('../assets/SaladeDeFruits.png'), 20, 10); // aliment pas apprécié
-let tiramisu = new Aliment(3, 15, require('../assets/Tiramisu.png'), 10, 25); // aliment apprécié
-let glace = new Aliment(3, 15, require('../assets/Glace.png'), 10, 33); //aliment très apprécié
-let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
+let moelleux = new Aliment("Moelleux au chocolat",3, 20, require('../assets/MoelleuxAuChocolat.png'), 5, 33); //aliment très apprécié
+let saladeFruits = new Aliment("Salade de fruits",3, 10, require('../assets/SaladeDeFruits.png'), 20, 10); // aliment pas apprécié
+let tiramisu = new Aliment("Tiramisu",3, 15, require('../assets/Tiramisu.png'), 10, 25); // aliment apprécié
+let glace = new Aliment("Glace",3, 15, require('../assets/Glace.png'), 10, 33); //aliment très apprécié
+let yaourt = new Aliment("Yaourt",3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
 //tableau des aliments
 const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
-=======
-let fraise = new Aliment('sucre','Fraise', require('../assets/Fraise.png'), 10, 3);
-let framboise =  new Aliment('sucre','Framboise', require('../assets/framboise.png'), 10, 3);
-let chocolat =  new Aliment('sucre','Chocolat', require('../assets/Chocolat.png'), -1, 10);
-let citrouille = new Aliment('sale','Citrouille', require('../assets/citrouille.png'), 40, 30);
-let poireau = new Aliment('sale','Poireau', require('../assets/poireau.png'), 5, -1);
-let tomate = new Aliment('sale','Tomate', require('../assets/tomate.png'), 5, 3);
-let pomme = new Aliment('sucre','Sucre', require('../assets/Pomme.png'), 7, -1);
+
 
 
 
@@ -59,9 +52,6 @@ export default function HomeScreen({ route, navigation }) {
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
 
-  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
-  const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
-  const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
 
 
   const counterPhy = useRef(new Animated.Value(0)).current;
