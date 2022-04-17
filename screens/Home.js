@@ -16,25 +16,25 @@ function Aliment(type, sasiete, image, ptsPhysique, ptsMental) {
 
 //Instanciation des aliments
 //Entrées type 1
-let pate = new Aliment(1, 25, require('../assets/Fraise.png'), 10, 33); //aliment très apprécié
-let carottes =  new Aliment(1, 10, require('../assets/framboise.png'), 20, 10); // aliment pas apprécié
-let betteraves =  new Aliment(1, 15, require('../assets/Chocolat.png'), 20, 10); // aliment pas apprécié
-let saucissons =  new Aliment(1, 10, require('../assets/Chocolat.png'), 10, 25); // aliment apprécié
+let pate = new Aliment(1, 25, require('../assets/Pate.png'), 10, 33); //aliment très apprécié
+let carottes =  new Aliment(1, 10, require('../assets/Carottes.png'), 20, 10); // aliment pas apprécié
+let betteraves =  new Aliment(1, 15, require('../assets/Betteraves.png'), 20, 10); // aliment pas apprécié
+let saucisson =  new Aliment(1, 10, require('../assets/Saucisson.png'), 10, 25); // aliment apprécié
 //Plats type 2
-let steak = new Aliment(2, 60, require('../assets/citrouille.png'), 45, 15); // aliment bof
-let pates = new Aliment(2, 65, require('../assets/poireau.png'), 35, 25); // aliment apprécié
-let hamburger = new Aliment(2, 70, require('../assets/tomate.png'), 20, 33); //aliment très apprécié
-let riz = new Aliment(2, 60, require('../assets/Pomme.png'), 40, 15); // aliment bof
-let poisson = new Aliment(2, 60, require('../assets/Pomme.png'), 45, 10); // aliment pas apprécié
-let salade = new Aliment(2, 50, require('../assets/Pomme.png'), 50, 10); // aliment pas apprécié
+let steak = new Aliment(2, 60, require('../assets/SteakHaricots.png'), 45, 15); // aliment bof
+let pates = new Aliment(2, 65, require('../assets/PatesBolognaises.png'), 35, 25); // aliment apprécié
+let hamburger = new Aliment(2, 70, require('../assets/HamburgerFrites.png'), 20, 33); //aliment très apprécié
+let riz = new Aliment(2, 60, require('../assets/RizDinde.png'), 40, 15); // aliment bof
+let poisson = new Aliment(2, 60, require('../assets/PoissonEpinards.png'), 45, 10); // aliment pas apprécié
+let salade = new Aliment(2, 50, require('../assets/SaladeComposee.png'), 50, 10); // aliment pas apprécié
 //Desserts type 3
-let moelleux = new Aliment(3, 20, require('../assets/Pomme.png'), 5, 33); //aliment très apprécié
-let saladeFruits = new Aliment(3, 10, require('../assets/Pomme.png'), 20, 10); // aliment pas apprécié
-let tiramisu = new Aliment(3, 15, require('../assets/Pomme.png'), 10, 25); // aliment apprécié
-let glace = new Aliment(3, 15, require('../assets/Pomme.png'), 10, 33); //aliment très apprécié
-let yaourt = new Aliment(3, 10, require('../assets/Pomme.png'), 20, 15); // aliment bof
+let moelleux = new Aliment(3, 20, require('../assets/MoelleuxAuChocolat.png'), 5, 33); //aliment très apprécié
+let saladeFruits = new Aliment(3, 10, require('../assets/SaladeDeFruits.png'), 20, 10); // aliment pas apprécié
+let tiramisu = new Aliment(3, 15, require('../assets/Tiramisu.png'), 10, 25); // aliment apprécié
+let glace = new Aliment(3, 15, require('../assets/Glace.png'), 10, 33); //aliment très apprécié
+let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
 //tableau des aliments
-const aliments = [pate, carottes, betteraves, saucissons, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
+const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
   
 
 
@@ -145,22 +145,18 @@ const widthSas = counterSas.interpolate({
     if(nbDessert > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbEntree;
     if (nbPlat == 0) Orniny.ptsPhysique = Orniny.ptsPhysique - 10;
     if (Orniny.sasiete > 100) Orniny.ptsPhysique = Orniny.ptsPhysique - 20; // si Orniny a trop mangé
-    prompt("repas analysé");
     // rectification des valeurs 
     if (Orniny.ptsPhysique > 100) Orniny.ptsPhysique = 100;
     if (Orniny.ptsMental > 100) Orniny.ptsMental = 100;
     if (Orniny.ptsMental < 0) Orniny.ptsMental = 0;
     if (Orniny.ptsPhysique < 0) Orniny.ptsPhysique = 0;
-    prompt("valeurs rectifiées");
     // Perte de poids
     
     if (Orniny.poids >= 160){
-      prompt("perte de poids");
       if (Orniny.ptsPhysique >= 90) Orniny.poids -= 2;
       if (Orniny.ptsPhysique >= 80 && Orniny.ptsPhysique < 90) Orniny.poids -= 1.5;
       if (Orniny.ptsPhysique >= 70 && Orniny.ptsPhysique < 80) Orniny.poids -= 1;
       if (Orniny.ptsPhysique >= 60 && Orniny.ptsPhysique < 70) Orniny.poids -= 0.5;
-      prompt("bons points");
       if (Orniny.ptsPhysique >= 50 && Orniny.ptsPhysique < 60) {
         if (Orniny.sasiete > 50) Orniny.poids += 0.5; // si Orniny a mangé trop gras
         else { //s'il n'a pas mangé assez
@@ -189,45 +185,30 @@ const widthSas = counterSas.interpolate({
           Orniny.ptsMental -= 7;
         }
       }
-      prompt("mauvais points");
     }
-    prompt("perte de poids");
     // Remise à 0 si nécessaire (pour les tests)
     if (Orniny.sante >= 100) Orniny.sante = 0 ;
     if (Orniny.bonheur >= 100) Orniny.bonheur = 0 ;
     if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
-    prompt("remise à 0");
-    prompt(Orniny.sante)
-    prompt(Orniny.bonheur)
-    prompt(Orniny.ptsPhysique)
-    prompt(Orniny.ptsMental);
     // actualisation des compteurs
     if (Orniny.ptsPhysique >= 60){
-      prompt("donnée actualisée 1");
       Orniny.sante = Orniny.sante + Orniny.ptsPhysique*0.1;
-      prompt(Orniny.sante)
     }
     if (Orniny.ptsPhysique < 60){
-      prompt("donnée actualisée 2");
       Orniny.sante = Orniny.sante - (1 - Orniny.ptsPhysique)*0.1;
-      prompt(Orniny.sante)
     }
     if (Orniny.ptsMental >= 60){
-      prompt("donnée actualisée 3");
       Orniny.bonheur = Orniny.bonheur + Orniny.ptsMental*0.1;
       
     }
     if (Orniny.ptsMental < 60){
-      prompt("donnée actualisée 4");
       Orniny.bonheur = Orniny.bonheur - (1 - Orniny.ptsMental)*0.1;
       
     }
-    prompt("données actualisées");
     if (Orniny.sante < 10) Orniny.bonheur -= 2; // Orniny ne peut être heureux s'il est en mauvaise santé
     if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
-    prompt("c'est fini");
   }
 
   return (
@@ -344,7 +325,7 @@ const widthSas = counterSas.interpolate({
 
       <View style={styles.Milieu} ></View>
 
-      <View style = {{width: '10%', justifyContent : 'right', margin:'auto', marginBottom:'10px'}}> 
+      <View style = {{width: '10%', justifyContent : 'right', margin:'auto', marginBottom:'1%'}}> 
           <Button style = {styles.button} title= "Repas terminé" onPress={actualiseOrniny} />
       </View>
       <DraxView
