@@ -14,8 +14,8 @@ export default function SportScreen({ route, navigation }) {
     const [faitSport, setFaitSport] = React.useState(false);
 
     const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
-  const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
-  const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
+    const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
+    const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
 
   const counterPhy = useRef(new Animated.Value(0)).current;
   const counterMent = useRef(new Animated.Value(0)).current;

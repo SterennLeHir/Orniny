@@ -5,25 +5,9 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
-import Home from './screens/Home'
-import MenuCool from './components/MenuCool'
-import SportScreen from './screens/Sport'
+import Home from './screens/Home';
 export default function App() {
 
-
-  
-
-  function DetailsScreen({ route,navigation }) {
-    let Orniny = route.params;
-    return (
-      <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{flex:2, alignSelf: 'center', justifyContent: 'center' }}>Details Screen : {Orniny.santePhysique} </Text>
-        <MenuCool navigation= {navigation} params= {Orniny}/>
-      </View>
-    );
-  }
-
-  
   const Stack = createNativeStackNavigator();
 
     const [loaded] = useFonts({
@@ -39,10 +23,8 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Log">
-          <Stack.Screen name="Log" component={Login} options={{ title: 'Connexion' }}/>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-          <Stack.Screen name="Sport" component={SportScreen} />
+          <Stack.Screen name="Log" component={Login} options={{ title: 'Orniny' }}/>
+          <Stack.Screen name="Home" component={Home} options={{ title: 'Accueil' }} />
         </Stack.Navigator>
       </NavigationContainer>
     ); 
