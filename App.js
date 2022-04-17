@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
 import Home from './screens/Home'
 import MenuCool from './components/MenuCool'
+import SportScreen from './screens/Sport'
 export default function App() {
 
 
@@ -41,6 +42,7 @@ export default function App() {
           <Stack.Screen name="Log" component={Login} options={{ title: 'Connexion' }}/>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Sport" component={SportScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     ); 

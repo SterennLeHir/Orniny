@@ -6,15 +6,17 @@ import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+
 function Aliment(type, sasiete, image, ptsPhysique, ptsMental) {
   this.type = type;
   this.sasiete = sasiete;
   this.image = image;
   this.ptsPhysique = ptsPhysique;
   this.ptsMental = ptsMental;
+  this.nom = nom ;
 }
 
-//Instanciation des aliments
+
 //Entrées type 1
 let pate = new Aliment(1, 25, require('../assets/Pate.png'), 10, 33); //aliment très apprécié
 let carottes =  new Aliment(1, 10, require('../assets/Carottes.png'), 20, 10); // aliment pas apprécié
@@ -35,18 +37,36 @@ let glace = new Aliment(3, 15, require('../assets/Glace.png'), 10, 33); //alimen
 let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
 //tableau des aliments
 const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
+=======
+let fraise = new Aliment('sucre','Fraise', require('../assets/Fraise.png'), 10, 3);
+let framboise =  new Aliment('sucre','Framboise', require('../assets/framboise.png'), 10, 3);
+let chocolat =  new Aliment('sucre','Chocolat', require('../assets/Chocolat.png'), -1, 10);
+let citrouille = new Aliment('sale','Citrouille', require('../assets/citrouille.png'), 40, 30);
+let poireau = new Aliment('sale','Poireau', require('../assets/poireau.png'), 5, -1);
+let tomate = new Aliment('sale','Tomate', require('../assets/tomate.png'), 5, 3);
+let pomme = new Aliment('sucre','Sucre', require('../assets/Pomme.png'), 7, -1);
+
+
+
   
 
 
 export default function HomeScreen({ route, navigation }) {
   let Orniny = route.params;
+
   const [received, setReceived] = React.useState([]);
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
+
+  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
+  const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
+  const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
+
+
   const counterPhy = useRef(new Animated.Value(0)).current;
-  const counterMent = useRef(new Animated.Value(1)).current;
-  const counterSas = useRef(new Animated.Value(2)).current;
+  const counterMent = useRef(new Animated.Value(0)).current;
+  const counterSas = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas) ;
@@ -60,6 +80,7 @@ export default function HomeScreen({ route, navigation }) {
       setCompteurSas(0);
     } 
   }, [compteurPhy, compteurMent, compteurSas]);
+
 
   const load = (compteurPhy,compteurMent,compteurSas) => {
     Animated.parallel([Animated.timing(counterPhy, {
@@ -99,17 +120,20 @@ const widthSas = counterSas.interpolate({
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
+        <View style={{height:"20%",top:"5%",bottom:"5%",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
           <DraxView
             key = {aliment.image}
             style={[styles.centeredContent, styles.draggableBox]}
             draggingStyle={styles.dragging}
             dragReleasedStyle={styles.dragging}
             hoverDraggingStyle={styles.hoverDragging}
-            dragPayload={'R'}
+            dragPayload={aliment}
             longPressDelay={0}
           >
-            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={styles.image} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
+            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:25,width:25}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
+          <Text style= {{position:"absolute",left:"10%",top:22,height:"10%",width:"85%",fontFamily:"Roboto", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
+          </View>
           ))}
       </ScrollView>
       </View>
@@ -117,6 +141,7 @@ const widthSas = counterSas.interpolate({
   }
   
   function feedOrniny(aliment){
+
     if (!Orniny.repus){ // si Orniny n'a pas fini de manger
       Orniny.sasiete = Orniny.sasiete + aliment.sasiete;
       Orniny.ptsMental = Orniny.ptsMental + aliment.ptsMental;
@@ -223,6 +248,7 @@ const widthSas = counterSas.interpolate({
       
       <View style={{width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
   
+
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
     <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
@@ -342,11 +368,9 @@ const widthSas = counterSas.interpolate({
             );
           }}
           onReceiveDragDrop={(event) => {
-            setReceived([
-              ...received,
-              event.dragged.payload || '?',
-            ]);
-            feedOrniny(pates);
+
+            feedOrniny(event.dragged.payload);
+
           }}
         />
        
@@ -431,8 +455,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   bordure : {
-    flex: 8,
-    flexDirection: 'row-reverse',
+    height:"10%",
+    flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
   bordureHaut : {
