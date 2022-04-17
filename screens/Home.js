@@ -1,20 +1,43 @@
 import * as React from "react";
 import { useEffect, useRef } from 'react';
-import { Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated} from 'react-native';
+import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-function Aliment(type,nom, image, ptsPhysique, ptsMental) {
+
+function Aliment(type, sasiete, image, ptsPhysique, ptsMental) {
   this.type = type;
+  this.sasiete = sasiete;
   this.image = image;
   this.ptsPhysique = ptsPhysique;
   this.ptsMental = ptsMental;
   this.nom = nom ;
 }
 
-//Instanciation des aliments
+
+//Entrées type 1
+let pate = new Aliment(1, 25, require('../assets/Pate.png'), 10, 33); //aliment très apprécié
+let carottes =  new Aliment(1, 10, require('../assets/Carottes.png'), 20, 10); // aliment pas apprécié
+let betteraves =  new Aliment(1, 15, require('../assets/Betteraves.png'), 20, 10); // aliment pas apprécié
+let saucisson =  new Aliment(1, 10, require('../assets/Saucisson.png'), 10, 25); // aliment apprécié
+//Plats type 2
+let steak = new Aliment(2, 60, require('../assets/SteakHaricots.png'), 45, 15); // aliment bof
+let pates = new Aliment(2, 65, require('../assets/PatesBolognaises.png'), 35, 25); // aliment apprécié
+let hamburger = new Aliment(2, 70, require('../assets/HamburgerFrites.png'), 20, 33); //aliment très apprécié
+let riz = new Aliment(2, 60, require('../assets/RizDinde.png'), 40, 15); // aliment bof
+let poisson = new Aliment(2, 60, require('../assets/PoissonEpinards.png'), 45, 10); // aliment pas apprécié
+let salade = new Aliment(2, 50, require('../assets/SaladeComposee.png'), 50, 10); // aliment pas apprécié
+//Desserts type 3
+let moelleux = new Aliment(3, 20, require('../assets/MoelleuxAuChocolat.png'), 5, 33); //aliment très apprécié
+let saladeFruits = new Aliment(3, 10, require('../assets/SaladeDeFruits.png'), 20, 10); // aliment pas apprécié
+let tiramisu = new Aliment(3, 15, require('../assets/Tiramisu.png'), 10, 25); // aliment apprécié
+let glace = new Aliment(3, 15, require('../assets/Glace.png'), 10, 33); //aliment très apprécié
+let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
+//tableau des aliments
+const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
+=======
 let fraise = new Aliment('sucre','Fraise', require('../assets/Fraise.png'), 10, 3);
 let framboise =  new Aliment('sucre','Framboise', require('../assets/framboise.png'), 10, 3);
 let chocolat =  new Aliment('sucre','Chocolat', require('../assets/Chocolat.png'), -1, 10);
@@ -24,14 +47,22 @@ let tomate = new Aliment('sale','Tomate', require('../assets/tomate.png'), 5, 3)
 let pomme = new Aliment('sucre','Sucre', require('../assets/Pomme.png'), 7, -1);
 
 
+
   
 
 
 export default function HomeScreen({ route, navigation }) {
   let Orniny = route.params;
+
+  const [received, setReceived] = React.useState([]);
+  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
+  const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
+  const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
+
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
   const [compteurSas, setCompteurSas] = React.useState(Orniny.sasiete);
+
 
   const counterPhy = useRef(new Animated.Value(0)).current;
   const counterMent = useRef(new Animated.Value(0)).current;
@@ -39,16 +70,17 @@ export default function HomeScreen({ route, navigation }) {
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas) ;
-    if (compteurPhy >= 100) {
+    if (compteurPhy > 100) {
       setCompteurPhy(0);
     }
-    if (compteurMent >= 100) {
+    if (compteurMent > 100) {
       setCompteurMent(0);
     } 
-    if (compteurSas >= 100) {
+    if (compteurSas > 100) {
       setCompteurSas(0);
     } 
-  }, [compteurPhy,compteurMent,compteurSas]);
+  }, [compteurPhy, compteurMent, compteurSas]);
+
 
   const load = (compteurPhy,compteurMent,compteurSas) => {
     Animated.parallel([Animated.timing(counterPhy, {
@@ -83,10 +115,6 @@ const widthSas = counterSas.interpolate({
   extrapolate: "clamp"
 })
 
-
-
-  
-
   function AlimentsBar(){
     return(
       <View style = {styles.containerList}>
@@ -112,24 +140,100 @@ const widthSas = counterSas.interpolate({
     )
   }
   
-  const aliments = [fraise, framboise, chocolat, citrouille, poireau, tomate, pomme]; //tableau des aliments
-  
   function feedOrniny(aliment){
-    Orniny.sasiete = Orniny.sasiete + aliment.sasiete;
-    Orniny.ptsMental = Orniny.ptsMental + aliment.ptsMental;
-    Orniny.ptsPhysique = Orniny.ptsPhysique + aliment.ptsPhysique;
-    if (Orniny.ptsPhysique >= 100) Orniny.ptsPhysique = 0 ;
-    if (Orniny.ptsMental >= 100) Orniny.ptsMental = 0 ;
+
+    if (!Orniny.repus){ // si Orniny n'a pas fini de manger
+      Orniny.sasiete = Orniny.sasiete + aliment.sasiete;
+      Orniny.ptsMental = Orniny.ptsMental + aliment.ptsMental;
+      Orniny.ptsPhysique = Orniny.ptsPhysique + aliment.ptsPhysique;
+      Orniny.variete.push(aliment.type);
+      setCompteurSas(100 - Orniny.sasiete);
+    }
+  }
+
+  function actualiseOrniny() {
+    Orniny.repus = true;
+    let nbEntree = 0; // nombre d'entrées 
+    let nbPlat = 0; // nombre de plats
+    let nbDessert = 0; // nombre de desserts
+    for (let i = 0; i < Orniny.variete.length; i++) {
+      if (Orniny.variete[i] == 1) nbEntree += 1;
+      if (Orniny.variete[i] == 2) nbPlat += 1;
+      if (Orniny.variete[i] == 3) nbDessert += 1;
+    } 
+
+    // Analyse du repas
+    if(Orniny.variete.length > 3) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé + de 3 choses
+    if(Orniny.variete.length < 2) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé - de 2 choses
+    if(nbEntree > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 3*nbEntree;
+    if(nbPlat > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 7*nbPlat;
+    if(nbDessert > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbEntree;
+    if (nbPlat == 0) Orniny.ptsPhysique = Orniny.ptsPhysique - 10;
+    if (Orniny.sasiete > 100) Orniny.ptsPhysique = Orniny.ptsPhysique - 20; // si Orniny a trop mangé
+    // rectification des valeurs 
+    if (Orniny.ptsPhysique > 100) Orniny.ptsPhysique = 100;
+    if (Orniny.ptsMental > 100) Orniny.ptsMental = 100;
+    if (Orniny.ptsMental < 0) Orniny.ptsMental = 0;
+    if (Orniny.ptsPhysique < 0) Orniny.ptsPhysique = 0;
+    // Perte de poids
+    
+    if (Orniny.poids >= 160){
+      if (Orniny.ptsPhysique >= 90) Orniny.poids -= 2;
+      if (Orniny.ptsPhysique >= 80 && Orniny.ptsPhysique < 90) Orniny.poids -= 1.5;
+      if (Orniny.ptsPhysique >= 70 && Orniny.ptsPhysique < 80) Orniny.poids -= 1;
+      if (Orniny.ptsPhysique >= 60 && Orniny.ptsPhysique < 70) Orniny.poids -= 0.5;
+      if (Orniny.ptsPhysique >= 50 && Orniny.ptsPhysique < 60) {
+        if (Orniny.sasiete > 50) Orniny.poids += 0.5; // si Orniny a mangé trop gras
+        else { //s'il n'a pas mangé assez
+          Orniny.poids -= 0.5;
+          Orniny.ptsMental -= 3;
+        } 
+      }
+      if (Orniny.ptsPhysique >= 40 && Orniny.ptsPhysique < 50) {
+        if (Orniny.sasiete > 50) Orniny.poids += 1; 
+        else {
+          Orniny.poids -= 1;
+          Orniny.ptsMental -= 5;
+        }
+      }
+      if (Orniny.ptsPhysique >= 30 && Orniny.ptsPhysique < 40){
+        if (Orniny.sasiete > 50) Orniny.poids += 1.5; 
+        else {
+          Orniny.poids -= 1.5;
+          Orniny.ptsMental -= 7;
+        }
+      }
+      if (Orniny.ptsPhysique >= 20 && Orniny.ptsPhysique < 30){
+        if (Orniny.sasiete > 50) Orniny.poids += 1.5; 
+        else {
+          Orniny.poids -= 1.5;
+          Orniny.ptsMental -= 7;
+        }
+      }
+    }
+    // Remise à 0 si nécessaire (pour les tests)
+    if (Orniny.sante >= 100) Orniny.sante = 0 ;
+    if (Orniny.bonheur >= 100) Orniny.bonheur = 0 ;
     if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
-    setCompteurPhy(Orniny.ptsPhysique);
-    setCompteurMent(Orniny.ptsMental);
-    setCompteurSas(Orniny.sasiete);
-    if (Orniny.ptsPhysique >= 70){ //si les points de santé sont supérieurs à 70%
-      Orniny.poids = Orniny.poids - 100; // orniny perds 5 kilos
+    // actualisation des compteurs
+    if (Orniny.ptsPhysique >= 60){
+      Orniny.sante = Orniny.sante + Orniny.ptsPhysique*0.1;
     }
-    if (Orniny.poids <= 150){ // si Orniny fait moins de 150 kilos
-      Orniny.image = require('../assets/Orniny.png');
+    if (Orniny.ptsPhysique < 60){
+      Orniny.sante = Orniny.sante - (1 - Orniny.ptsPhysique)*0.1;
     }
+    if (Orniny.ptsMental >= 60){
+      Orniny.bonheur = Orniny.bonheur + Orniny.ptsMental*0.1;
+      
+    }
+    if (Orniny.ptsMental < 60){
+      Orniny.bonheur = Orniny.bonheur - (1 - Orniny.ptsMental)*0.1;
+      
+    }
+    if (Orniny.sante < 10) Orniny.bonheur -= 2; // Orniny ne peut être heureux s'il est en mauvaise santé
+    if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
+    setCompteurPhy(Orniny.sante);
+    setCompteurMent(Orniny.bonheur);
   }
 
   return (
@@ -145,8 +249,8 @@ const widthSas = counterSas.interpolate({
       <View style={{width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
   
 
-    <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé Physique</Text>
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
+    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
         <Animated.View
           style={
@@ -156,7 +260,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Santé Mentale</Text>
+      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Bonheur</Text>
       <View style={styles.progressBarJ}>
       
         <Animated.View
@@ -167,7 +271,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Sasiété</Text>
+      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Faim</Text>
       <View style={styles.progressBarB}>
         <Animated.View
           style={
@@ -198,7 +302,7 @@ const widthSas = counterSas.interpolate({
       <ImageBackground source={fond} resizeMode="stretch" style = {{flex:64}}>
 
       <View style={styles.imageFond}>
-      
+    
       <View style={styles.PartieGauche}>
       <View style={styles.Quiz}>
 
@@ -247,7 +351,9 @@ const widthSas = counterSas.interpolate({
 
       <View style={styles.Milieu} ></View>
 
-      
+      <View style = {{width: '10%', justifyContent : 'right', margin:'auto', marginBottom:'1%'}}> 
+          <Button style = {styles.button} title= "Repas terminé" onPress={actualiseOrniny} />
+      </View>
       <DraxView
           style={styles.Droit}
           receivingStyle={styles.receiving}
@@ -262,7 +368,9 @@ const widthSas = counterSas.interpolate({
             );
           }}
           onReceiveDragDrop={(event) => {
+
             feedOrniny(event.dragged.payload);
+
           }}
         />
        
@@ -509,4 +617,3 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
-
