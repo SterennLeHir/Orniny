@@ -40,7 +40,6 @@ const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger
 
 
 
-
   
 
 
@@ -51,7 +50,6 @@ export default function HomeScreen({ route, navigation }) {
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
-
 
 
   const counterPhy = useRef(new Animated.Value(0)).current;
