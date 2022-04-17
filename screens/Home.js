@@ -37,7 +37,6 @@ let glace = new Aliment(3, 15, require('../assets/Glace.png'), 10, 33); //alimen
 let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15); // aliment bof
 //tableau des aliments
 const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
-=======
 let fraise = new Aliment('sucre','Fraise', require('../assets/Fraise.png'), 10, 3);
 let framboise =  new Aliment('sucre','Framboise', require('../assets/framboise.png'), 10, 3);
 let chocolat =  new Aliment('sucre','Chocolat', require('../assets/Chocolat.png'), -1, 10);
