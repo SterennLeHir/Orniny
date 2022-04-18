@@ -13,7 +13,7 @@ function ConnexionCard({navigation, params}) {
                 <Text style={[styles.titre,styles.bleu]}>y</Text>
             </View>
             <View style = {{width: '100%'}}> 
-                <Image source = {require('./assets/Orniny.png')}/>
+                <Image source = {require('../assets/Orniny.png')}/>
             </View>
             <View style = {{width: '50%', justifyContent : 'center', margin:'auto', marginBottom:'10%'}}> 
                 <Button style = {styles.button} title="JOUER" onPress={() => navigation.navigate('Home',params)} />
