@@ -56,8 +56,8 @@ const DATA = [
     id: "tomate",
     key: '1',
     title: ' La tomate',
-    petittext1:"Orniny vous montre les bienfaits",
-    petittext2 :"de la tomate.",
+    petittext1:"",
+    petittext2 :"Orniny vous montre les bienfaits de la tomate.",
     image1: require("../assets/tomate.png"),
     imageminiature: "./assets/tomate.png",
     link: "https://www.youtube.com",
@@ -65,8 +65,8 @@ const DATA = [
   {
     id: 'citrouille',
     key: '2',
-    petittext1:"Orniny vous montre les bienfaits",
-    petittext2 :"de la citrouille.",
+    petittext1:"",
+    petittext2 :"Orniny vous montre les bienfaits de la citrouille.",
     title: ' La citrouille',
     image1: require("../assets/citrouille.png"),
     imageminiature: "./assets/citrouille.png",
@@ -76,8 +76,8 @@ const DATA = [
     id: 'Poireau',
     key: '3',
     title: ' Le poireau',
-    petittext1:"Orniny vous montre les bienfaits",
-    petittext2 :"du poireau.",
+    petittext1:"",
+    petittext2 :"Orniny vous montre les bienfaits du poireau.",
     image1: require("../assets/poireau.png"),
     imageminiature: "./assets/poireau.png",
     link: "https://www.youtube.com",
@@ -87,8 +87,8 @@ const DATA = [
     id: 'framboise',
     key: '4',
     title: ' La framboise',
-    petittext1:" Orniny vous montre les bienfaits",
-    petittext2 :"de la framboise.",
+    petittext1:"",
+    petittext2 :"Orniny vous montre les bienfaits de la framboise.",
     image1: require("../assets/framboise.png"),
     imageminiature: "./assets/framboise.png",
     link: "https://www.youtube.com",
@@ -104,13 +104,13 @@ const renderIte = ({ item }) => {
       <Image source={item.image1} resizeMode="contain" style={{width:"100%",height:"100%"}}/>
       </View>
       <View style={styles.textsurleslegumes}>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:20,color:'rgb(256,256,256)'}]}>{item.title}</Text>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:15,}]}> {item.petittext1}</Text>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:15,}]}> {item.petittext2}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:20,color:'rgb(256,256,256)'}]}>{item.title}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:15,}]}> {item.petittext1}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:15,}]}> {item.petittext2}</Text>
       </View>
       <View style = {styles.buttonview}>
       <Button
-      title="voir la vidéo"
+      title="Voir la vidéo"
       onPress={()=>Linking.openURL(item.link)}
       color="rgb(122,213,252)"
     >

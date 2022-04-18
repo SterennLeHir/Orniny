@@ -39,9 +39,6 @@ const toVideo= () => {
         </TouchableHighlight>}
         onRequestClose={hideMenu}
       >
-      <MenuItem style = {styles.page} onPress={toLogin}>
-            Login
-      </MenuItem>
         <MenuItem style = {styles.page} onPress={toHome}>
             Home
       </MenuItem>
@@ -50,7 +47,10 @@ const toVideo= () => {
       </MenuItem>    
       <MenuItem style = {styles.page} onPress={toVideo}>
             Vidéos
-      </MenuItem>            
+      </MenuItem>   
+      <MenuItem style = {styles.page} onPress={toLogin}>
+            Déconnexion
+      </MenuItem>         
       </Menu>
     </View>
   );
