@@ -12,8 +12,11 @@ function ConnexionCard({navigation, params}) {
                 <Text style={[styles.titre,styles.vert]}>n</Text>
                 <Text style={[styles.titre,styles.bleu]}>y</Text>
             </View>
+            <View style = {{width: '90%', height: '70%', justifyContent : 'center', margin:'auto'}}> 
+                <Image source = {require('../assets/Orniny.png')} resizeMode="contain" style={{height:"100%",width:"100%"}}/>
+            </View>
             <View style = {{width: '50%', justifyContent : 'center', margin:'auto', marginBottom:'10%'}}> 
-                <Button style = {styles.button} title="JOUER ICI" onPress={() => navigation.navigate('Home',params)} />
+                <Button style = {styles.button} title="JOUER" onPress={() => navigation.navigate('Home',params)} />
             </View>
             
             
