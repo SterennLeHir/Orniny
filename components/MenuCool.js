@@ -21,6 +21,14 @@ export default function MenuCool({navigation,params}) {
     navigation.navigate('Home',params)
     hideMenu
 }
+const toRecette = () => {
+  navigation.navigate('Recettes',params)
+  hideMenu
+}
+const toVideo= () => {
+  navigation.navigate('Videos',params)
+  hideMenu
+}
 
   return (
     <View style={{ height: '100%', color:"rgb(122,213,252)", alignItems: 'center', justifyContent: 'center' }}>
@@ -36,7 +44,13 @@ export default function MenuCool({navigation,params}) {
       </MenuItem>
         <MenuItem style = {styles.page} onPress={toHome}>
             Home
-      </MenuItem>        
+      </MenuItem>
+      <MenuItem style = {styles.page} onPress={toRecette}>
+            Recettes
+      </MenuItem>    
+      <MenuItem style = {styles.page} onPress={toVideo}>
+            Vidéos
+      </MenuItem>            
       </Menu>
     </View>
   );

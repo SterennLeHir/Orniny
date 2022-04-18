@@ -6,6 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
 import Home from './screens/Home';
+import Video from './screens/video';
+import Recette from './screens/recette';
+import video from "./screens/video";
+
+
 export default function App() {
 
   const Stack = createNativeStackNavigator();
@@ -25,6 +30,8 @@ export default function App() {
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Log">
           <Stack.Screen name="Log" component={Login} options={{ title: 'Orniny' }}/>
           <Stack.Screen name="Home" component={Home} options={{ title: 'Accueil' }} />
+          <Stack.Screen name="Recettes" component={Recette} options={{ title: 'Recettes' }} />
+          <Stack.Screen name="Videos" component={video} options={{ title: 'Videos' }} />
         </Stack.Navigator>
       </NavigationContainer>
     ); 
