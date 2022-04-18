@@ -13,8 +13,8 @@ export default function SportScreen({ route, navigation }) {
     const [textKm, setTextKm] = React.useState('');
     const [faitSport, setFaitSport] = React.useState(false);
 
-    const [compteurPhy, setCompteurPhy] = React.useState(Orniny.ptsPhysique);
-    const [compteurMent, setCompteurMent] = React.useState(Orniny.ptsMental);
+    const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
+    const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
     const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
 
   const counterPhy = useRef(new Animated.Value(0)).current;
@@ -40,24 +40,24 @@ export default function SportScreen({ route, navigation }) {
         varMent = 5 + 0.25 * parseInt(textD);
         varSas = -5 - 0.25 * parseInt(textD);
     } ;
-    Orniny.ptsMental = Orniny.ptsMental + varMent ;
-    Orniny.ptsPhysique = Orniny.ptsPhysique + varPhy ;
-    Orniny.sasiete = Orniny.sasiete + varSas ;
-    setCompteurMent(Orniny.ptsMental) ;
-    setCompteurPhy(Orniny.ptsPhysique) ;
-    setCompteurSas(Orniny.sasiete);
+    Orniny.bonheur = Orniny.bonheur + varMent*0.1 ;
+    Orniny.sante = Orniny.sante + varPhy*0.1 ;
+    Orniny.sasiete = Orniny.sasiete + varSas*0.1 ;
+    setCompteurMent(Orniny.bonheur) ;
+    setCompteurPhy(Orniny.sante) ;
+    setCompteurSas(100 - Orniny.sasiete);
     setFaitSport(true) ;
   };
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas) ;
-    if (compteurPhy >= 100) {
+    if (compteurPhy > 100) {
       setCompteurPhy(0);
     }
-    if (compteurMent >= 100) {
+    if (compteurMent > 100) {
       setCompteurMent(0);
     } 
-    if (compteurSas >= 100) {
+    if (compteurSas > 100) {
       setCompteurSas(0);
     } 
   }, [compteurPhy,compteurMent,compteurSas]);
@@ -123,7 +123,7 @@ const [quelSport, setQuelSport] = React.useState('');
       <View style={{width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
   
     <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé Physique</Text>
+    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
         <Animated.View
           style={
@@ -133,7 +133,7 @@ const [quelSport, setQuelSport] = React.useState('');
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Santé Mentale</Text>
+      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Bonheur</Text>
       <View style={styles.progressBarJ}>
       
         <Animated.View
@@ -144,7 +144,7 @@ const [quelSport, setQuelSport] = React.useState('');
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Sasiété</Text>
+      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Faim</Text>
       <View style={styles.progressBarB}>
         <Animated.View
           style={
