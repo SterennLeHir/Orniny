@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useRef } from 'react';
-import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable} from 'react-native';
+import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import { DraxProvider, DraxView } from 'react-native-drax';
@@ -107,7 +107,7 @@ const widthSas = counterSas.interpolate({
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
-        <View style={{height:"20%",top:"5%",bottom:"5%",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        <View style={{height:"30%",top:"5%",bottom:"10%",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
           <DraxView
             key = {aliment.image}
             style={[styles.centeredContent, styles.draggableBox]}
@@ -119,7 +119,7 @@ const widthSas = counterSas.interpolate({
           >
             <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:25,width:25}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
-          <Text style= {{position:"absolute",left:"10%",top:22,height:"10%",width:"85%",fontFamily:"Roboto", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
+          <Text style= {{position:"absolute",left:"10%", height:"10%",width:"85%",fontFamily:"NotoSans", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
           </View>
           ))}
       </ScrollView>
@@ -233,11 +233,11 @@ const widthSas = counterSas.interpolate({
       {/* BARRE DU HAUT */}
       <View style={styles.bordureHaut}>
       
-      <View style={{width:'35%',height:'80%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
+      <View style={{width:'35%',height:'90%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
   
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-    <Text style={[styles.titre,styles.vert,{fontSize:10,width:"20%"}]}>Santé</Text>
+    <Text style={[styles.titre,styles.vert,{fontSize:15,width:"20%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
         <Animated.View
           style={
@@ -247,7 +247,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.jaune,{fontSize:10,width:"20%"}]}>Bonheur</Text>
+      <Text style={[styles.titre,styles.jaune,{fontSize:15,width:"20%"}]}>Bonheur</Text>
       <View style={styles.progressBarJ}>
       
         <Animated.View
@@ -258,7 +258,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.bleu,{fontSize:10,width:"20%"}]}>Faim</Text>
+      <Text style={[styles.titre,styles.bleu,{fontSize:15,width:"20%"}]}>Faim</Text>
       <View style={styles.progressBarB}>
         <Animated.View
           style={
@@ -340,9 +340,9 @@ const widthSas = counterSas.interpolate({
 
       <View style={styles.Milieu} ></View>
 
-      <View style = {{width: '10%', justifyContent : 'right', margin:'auto', marginBottom:'1%'}}> 
-          <Button style = {styles.bouton} title= "Repas terminé" onPress={actualiseOrniny} />
-      </View>
+      <TouchableOpacity style = {styles.button} onPress={actualiseOrniny}>
+                <Text style = {{fontFamily: 'Pacifico', color: "rgb(122,213,252)", fontSize: 15,textAlign:'center' }}> Repas terminé </Text>
+      </TouchableOpacity>
       <DraxView
           style={styles.Droit}
           receivingStyle={styles.receiving}
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   PartieGauche: {
     height: "100%",
     justifyContent: "space-around",
-    width: "33%",
+    width: "30%",
     alignItems: "center",
   },
   Quiz: {
@@ -404,7 +404,8 @@ const styles = StyleSheet.create({
     height: "45%",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "rgba(68,73,123,0.8)",
+    backgroundColor: '#44497B',
+    opacity:0.9,
     borderRadius: 10,
   },
   Sport: {
@@ -412,7 +413,8 @@ const styles = StyleSheet.create({
     height: "45%",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "rgba(68,73,123,0.8)",
+    backgroundColor: '#44497B',
+    opacity:0.9,
     borderRadius: 10,
   },
   Milieu: {
@@ -468,7 +470,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     borderRadius: 10,
-    
+  
   },
   caseTitre:{
     justifyContent: "center",
@@ -489,6 +491,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  button: {
+    width: '10%', 
+    height: '10%',
+    justifyContent : 'right', 
+    alignContent:'center',
+    margin:'auto', 
+    marginBottom:'1%',
+    borderRadius:10,
+    borderColor:"rgb(122,213,252)",
+    borderWidth: 3,
+},
   // Texte :
   titre:{
     fontFamily:"Pacifico",
@@ -531,8 +544,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   receiving: {
-    borderColor: 'red',
-    borderWidth: 2,
   },
   incomingPayload: {
     marginTop: 10,
@@ -569,8 +580,6 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   hoverDragging: {
-    borderColor: 'magenta',
-    borderWidth: 2,
   },
   stagedCount: {
     fontSize: 18,
