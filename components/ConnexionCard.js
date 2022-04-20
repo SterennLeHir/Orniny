@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, Button } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 function ConnexionCard({navigation, params}) {
     return (
         <View style = {styles.card}> 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', marginTop:'5%'}}>
                 <Text style={[styles.titre,styles.vert]}>O</Text>
                 <Text style={[styles.titre,styles.bleu]}>r</Text>
                 <Text style={[styles.titre,styles.rouge]}>n</Text>
@@ -15,9 +15,9 @@ function ConnexionCard({navigation, params}) {
             <View style = {{width: '90%', height: '70%', justifyContent : 'center', margin:'auto'}}> 
                 <Image source = {require('../assets/Orniny.png')} resizeMode="contain" style={{height:"100%",width:"100%"}}/>
             </View>
-            <View style = {{width: '50%', justifyContent : 'center', margin:'auto', marginBottom:'10%'}}> 
-                <Button style = {styles.button} title="JOUER" onPress={() => navigation.navigate('Home',params)} />
-            </View>
+            <TouchableOpacity style = {styles.button} onPress={() => navigation.navigate('Home',params)}>
+                <Text style = {{fontFamily: 'NotoSans', color: "rgb(255,251,162)" }}> JOUER </Text>
+            </TouchableOpacity>
             
             
             
@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
         borderRadius:10,
         backgroundColor: '#44497B',
         opacity:0.9,
-        height: '70%',
+        height: '80%',
         width: '40%',
-        margin: '30%',
+        margin:'auto',
         alignItems: 'center',
     },
     titre:{
@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius:10,
+        width: "30%",
+        height: "10%",
+        borderRadius: 10,
+        borderColor:"rgb(255,251,162)",
+        borderWidth: 3,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom:'10%',
     },
     image : {
        display: 'flex', 
