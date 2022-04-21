@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button } from 'react-native';
+import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button, Pressable } from 'react-native';
 import { Dimensions } from 'react-native-web';
 import * as OpenAnything from "react-native-openanything";
 import MenuCool from '../components/MenuCool' ;
@@ -58,9 +58,9 @@ const DATA = [
   {
     id: "tomate",
     key: '1',
-    title: 'soupe a la citrouille',
+    title: 'Soupe a la citrouille',
     petittext1:"Difficulté: 2/5",
-    petittext2 :"Temps de préparation:1h",
+    petittext2 :"Temps de préparation: 40 min",
     image1: require("../assets/Soupe citrouille.jpg"),
     docpdf:("https://drive.google.com/file/d/18PuoC-3x5TywNL_hpBzQeTz3uMXahFXh/view?usp=sharing"),
   },
@@ -68,7 +68,7 @@ const DATA = [
     id: 'citrouille',
     key: '2',
     petittext1:"Difficulté: 1/5",
-    petittext2 :"Temps de préparation:15min",
+    petittext2 :"Temps de préparation: 15min",
     title: ' fromage blanc au framboise',
     image1: require("../assets/recette framboise.jpg"),
     imageminiature: "./assets/citrouille.png",
@@ -80,7 +80,7 @@ const DATA = [
     key: '3',
     title: 'Filet de boeuf Strogonoff',
     petittext1:"Difficulté: 3/5",
-    petittext2 :"Temps de préparation:1h",
+    petittext2 :"Temps de préparation: 1h",
     image1: require("../assets/recette champignon.jpg"),
     imageminiature: "./assets/poireau.png",
     link: "https://www.youtube.com",
@@ -96,29 +96,20 @@ const renderIte = ({ item }) => {
       <Image source={item.image1} resizeMode="contain" style={{width:"100%",height:"100%"}}/>
       </View>
       <View style={styles.textsurleslegumes}>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:15,color:'rgb(256,256,256)'}]}>{item.title}</Text>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:10,}]}> {item.petittext1}</Text>
-      <Text style = {[{fontFamily:"Pacifico",fontSize:10,}]}> {item.petittext2}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:25,color:"rgb(255,251,162)"}]}>{item.title}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:15,color:'rgb(256,256,256)',marginTop:"5%"}]}> {item.petittext1}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:15,color:'rgb(256,256,256)',marginTop:"5%"}]}> {item.petittext2}</Text>
       </View>
       <View style = {styles.buttonview}>
-      <Button
-      title="voir la recette"
-      onPress={()=> OpenAnything.Pdf(item.docpdf)}
-      color="rgb(122,213,252)"
-    >
-    </Button>
+      <Pressable onPress={() =>  OpenAnything.Pdf(item.docpdf)}>
+            <Text style = {styles.textButton}>Voir la recette</Text>
+          </Pressable>
       </View>
     </View>
+    
   );  
 
 }
-
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-
 
 const styles = StyleSheet.create({
   bordureHaut: {
@@ -169,8 +160,8 @@ alignSelf:"center"
     marginHorizontal: 15,
   },
   back: {
-    width: windowWidth * 1,
-    height: windowHeight * 1,
+    width: "100%",
+    height: "100%"
   },
 casebackground:{
 borderRadius:5,
@@ -185,9 +176,10 @@ flexDirection:"row"
     blurRadius:5,
     marginLeft:"5%",
     width: "20%",
-    height: "100%",
+    height: "90%",
     alignItems:"center",
-    alignSelf:"auto"
+    alignSelf:"center",
+    alignContent:"center"
   },
   item: {
     margintop: 24,
@@ -219,19 +211,25 @@ listeScroll: {
   alignSelf:"center",
   alignItems:"center"
 },
-button:{
-  width:"10%",
-  height : "10%",
-  alignSelf:"stretch",
-}
-,
 buttonview : {
-flex:1,
-marginRight:"5%",
-flexDirection:'row',
-justifyContent:'flex-end',
-alignSelf:'center',
-alignItems:'flex-end'
-
-},
+  width:"22%",
+  height:"25%",
+  justifyContent:'flex-end',
+  position:"absolute",
+ alignSelf:"center",
+ borderRadius: 10,
+ borderColor:"rgb(255,251,162)",
+ borderWidth: 3,
+   alignItems: "center",
+   left:"70%"
+   
+  
+   
+ },
+ textButton:{
+   fontFamily:"Pacifico",
+ 
+   fontSize: 18,
+   color:"rgb(255,251,162)",
+ },
 });
