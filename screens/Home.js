@@ -232,8 +232,8 @@ const widthSas = counterSas.interpolate({
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
 
-    if (dodo) {setSpriteOrniny(OrninyRepos) ; Orniny.image = OrninyRepos ;}
-    else if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
+
+    if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
     else if (Orniny.poids > 160) { setSpriteOrniny(OrninyGros) ; Orniny.image = OrninyGros ; }
     else if (Orniny.poids > 120) { setSpriteOrniny(OrninyBeauBebe) ; Orniny.image = OrninyBeauBebe ; }
     else if (Orniny.poids > 80) { setSpriteOrniny(OrninyIdeal) ; Orniny.image = OrninyIdeal ; }
@@ -243,7 +243,7 @@ const widthSas = counterSas.interpolate({
 
   function repos() {
     dodo ? setDodo(false) : setDodo(true) ;
-    actualiseOrniny() ;
+    
   }
   
   return (
@@ -379,7 +379,7 @@ const widthSas = counterSas.interpolate({
             const payload = receivingDrag && receivingDrag.payload;
             return (
               <>
-              <Image source={spriteOrniny} resizeMode="contain" style={styles.OrninyStyle}></Image>
+              <Image source={dodo ? OrninyRepos : spriteOrniny} resizeMode="contain" style={styles.OrninyStyle}></Image>
 
               </>
             );
