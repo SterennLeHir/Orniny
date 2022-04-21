@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button } from 'react-native';
-import { Dimensions, TouchableWithoutFeedback, YellowBox } from 'react-native-web';
+import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button ,Pressable } from 'react-native';
 import MenuCool from '../components/MenuCool' ;
 
 export default function video({ route, navigation }) {
@@ -56,30 +55,24 @@ const DATA = [
     id: "tomate",
     key: '1',
     title: ' La tomate',
-    petittext1:"",
     petittext2 :"Orniny vous montre les bienfaits de la tomate.",
     image1: require("../assets/tomate.png"),
-    imageminiature: "./assets/tomate.png",
     link: "https://www.youtube.com",
   },
   {
     id: 'citrouille',
     key: '2',
-    petittext1:"",
     petittext2 :"Orniny vous montre les bienfaits de la citrouille.",
     title: ' La citrouille',
     image1: require("../assets/citrouille.png"),
-    imageminiature: "./assets/citrouille.png",
     link: "https://www.youtube.com",
   },
   {
     id: 'Poireau',
     key: '3',
     title: ' Le poireau',
-    petittext1:"",
-    petittext2 :"Orniny vous montre les bienfaits du poireau.",
+    petittext2 :"Orniny vous montre les bienfaits du poireau. ",
     image1: require("../assets/poireau.png"),
-    imageminiature: "./assets/poireau.png",
     link: "https://www.youtube.com",
 
   },
@@ -87,10 +80,8 @@ const DATA = [
     id: 'framboise',
     key: '4',
     title: ' La framboise',
-    petittext1:"",
     petittext2 :"Orniny vous montre les bienfaits de la framboise.",
     image1: require("../assets/framboise.png"),
-    imageminiature: "./assets/framboise.png",
     link: "https://www.youtube.com",
 
 
@@ -104,27 +95,20 @@ const renderIte = ({ item }) => {
       <Image source={item.image1} resizeMode="contain" style={{width:"100%",height:"100%"}}/>
       </View>
       <View style={styles.textsurleslegumes}>
-      <Text style = {[{fontFamily:"NotoSans",fontSize:20,color:'rgb(256,256,256)'}]}>{item.title}</Text>
-      <Text style = {[{fontFamily:"NotoSans",fontSize:15,}]}> {item.petittext1}</Text>
-      <Text style = {[{fontFamily:"NotoSans",fontSize:15,}]}> {item.petittext2}</Text>
+      <Text style = {[{fontFamily:"NotoSans",fontSize:25,color:"rgb(255,251,162)"}]}>{item.title}</Text>
+      
+      <Text style = {[{fontFamily:"NotoSans",fontSize:20,marginTop:"5%",color:'rgb(256,256,256)'}]}> {item.petittext2}</Text>
       </View>
       <View style = {styles.buttonview}>
-      <Button
-      title="Voir la vidéo"
-      onPress={()=>Linking.openURL(item.link)}
-      color="rgb(122,213,252)"
-    >
-    </Button>
+      <Pressable onPress={() =>  Linking.openURL(item.link)}>
+            <Text style = {styles.textButton}>Voir la video</Text>
+          </Pressable>
       </View>
     </View>
   );  
 
 }
 
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 
@@ -171,14 +155,9 @@ alignSelf:"center"
     height: 159,
     marginBottom: 10,
   },
-  instructions: {
-    color: '#888',
-    fontSize: 18,
-    marginHorizontal: 15,
-  },
   back: {
-    width: windowWidth * 1,
-    height: windowHeight * 1,
+    width: "100%",
+    height: "100%"
   },
 casebackground:{
 borderRadius:5,
@@ -227,19 +206,25 @@ listeScroll: {
   alignSelf:"center",
   alignItems:"center"
 },
-button:{
-  width:"12%",
-  height : "10%",
-  alignSelf:"stretch",
-}
-,
 buttonview : {
-  width:"35%",
-  height:"44%",
-flexDirection:'row',
-justifyContent:'flex-end',
-alignSelf:'center',
-alignItems:'flex-end'
+ width:"22%",
+ height:"25%",
+ justifyContent:'flex-end',
+ position:"absolute",
+alignSelf:"center",
+borderRadius: 10,
+borderColor:"rgb(255,251,162)",
+borderWidth: 3,
+  alignItems: "center",
+  left:"70%"
+  
+ 
+  
+},
+textButton:{
+  fontFamily:"Pacifico",
 
+  fontSize: 18,
+  color:"rgb(255,251,162)",
 },
 });
