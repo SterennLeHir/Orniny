@@ -3,6 +3,13 @@ import { useEffect, useRef } from 'react';
 import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
+import fondNuit from '../assets/fondNuit.jpg';
+import OrninyRepos from '../assets/OrninyQuiDort.png';
+import OrninyObese from '../assets/OrninyObese.png';
+import OrninyGros from '../assets/OrninyGros.png';
+import OrninyBeauBebe from '../assets/OrninyBeauBebe.png';
+import OrninyIdeal from '../assets/OrninyIdeal.png';
+import OrninyMaigre from '../assets/OrninyMaigre.png';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -54,6 +61,9 @@ export default function HomeScreen({ route, navigation }) {
   const counterPhy = useRef(new Animated.Value(0)).current;
   const counterMent = useRef(new Animated.Value(0)).current;
   const counterSas = useRef(new Animated.Value(0)).current;
+
+  const [dodo, setDodo] = React.useState(false) ;
+  const [spriteOrniny, setSpriteOrniny] = React.useState(Orniny.image);
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas) ;
@@ -221,8 +231,21 @@ const widthSas = counterSas.interpolate({
     if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
+
+    if (dodo) {setSpriteOrniny(OrninyRepos) ; Orniny.image = OrninyRepos ;}
+    else if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
+    else if (Orniny.poids > 160) { setSpriteOrniny(OrninyGros) ; Orniny.image = OrninyGros ; }
+    else if (Orniny.poids > 120) { setSpriteOrniny(OrninyBeauBebe) ; Orniny.image = OrninyBeauBebe ; }
+    else if (Orniny.poids > 80) { setSpriteOrniny(OrninyIdeal) ; Orniny.image = OrninyIdeal ; }
+    else { setSpriteOrniny(OrninyMaigre) ; Orniny.image = OrninyMaigre ; }
+    
   }
 
+  function repos() {
+    dodo ? setDodo(false) : setDodo(true) ;
+    actualiseOrniny() ;
+  }
+  
   return (
     < GestureHandlerRootView style={{flex:1}}>
     <DraxProvider>
@@ -280,13 +303,17 @@ const widthSas = counterSas.interpolate({
 
       <View style={{width:'35%',height:'100%',flexDirection: 'row-reverse'}}>
       <MenuCool navigation= {navigation} params ={Orniny}/>
+      <TouchableOpacity style = {styles.buttonRepos} onPress={repos}>
+                <Text style = {{fontFamily: 'Pacifico', color: "rgb(245,123,123)"
+                , fontSize: 15,textAlign:'center' }}> Repos </Text>
+      </TouchableOpacity>
       </View>
 
       </View>
 
       {/* CONTENU PRINCIPAL */}
 
-      <ImageBackground source={fond} resizeMode="stretch" style = {{flex:64}}>
+      <ImageBackground source={dodo ? fondNuit : fond} resizeMode="stretch" style = {{flex:64}}>
 
       <View style={styles.imageFond}>
     
@@ -352,7 +379,7 @@ const widthSas = counterSas.interpolate({
             const payload = receivingDrag && receivingDrag.payload;
             return (
               <>
-              <Image source={Orniny.image} resizeMode="contain" style={styles.OrninyStyle}></Image>
+              <Image source={spriteOrniny} resizeMode="contain" style={styles.OrninyStyle}></Image>
 
               </>
             );
@@ -370,7 +397,7 @@ const widthSas = counterSas.interpolate({
 
     
     {/* BARRE DU BAS */}
-    <View style={styles.bordure}>
+    <View style={styles.bordure} pointerEvents={dodo ? 'none' : 'auto'}>
       <AlimentsBar />
     </View>
 
@@ -503,6 +530,16 @@ const styles = StyleSheet.create({
     borderColor:"rgb(122,213,252)",
     borderWidth: 3,
     backgroundColor:"rgba(58,115,167,0.5)"
+},
+buttonRepos: {
+  width: '30%', 
+  height: '60%',
+  justifyContent : 'center', 
+  alignContent:'center',
+  margin:'auto', 
+  borderRadius:10,
+  borderColor:"rgb(245,123,123)",
+  borderWidth: 3,
 },
   // Texte :
   titre:{

@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
 import Home from './screens/Home';
 import Recette from './screens/Recette';
-import video from "./screens/Video";
+import Video from "./screens/Video";
 import Sport from "./screens/Sport";
 
 export default function App() {
@@ -30,7 +30,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} options={{ title: 'Accueil' }} />
           <Stack.Screen name = "Sport" component= {Sport} options = {{title : 'Sport'}}/>
           <Stack.Screen name="Recettes" component={Recette} options={{ title: 'Recettes' }} />
-          <Stack.Screen name="Videos" component={video} options={{ title: 'Videos' }} />
+          <Stack.Screen name="Videos" component={Video} options={{ title: 'Videos' }} />
         </Stack.Navigator>
       </NavigationContainer>
     ); 
