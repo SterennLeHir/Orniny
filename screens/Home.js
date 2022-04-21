@@ -56,17 +56,19 @@ export default function HomeScreen({ route, navigation }) {
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
+  const [compteurPoids, setCompteurPoids] = React.useState(Orniny.poids);
 
 
   const counterPhy = useRef(new Animated.Value(0)).current;
   const counterMent = useRef(new Animated.Value(0)).current;
   const counterSas = useRef(new Animated.Value(0)).current;
+  const counterPoids = useRef(new Animated.Value(0)).current;
 
   const [dodo, setDodo] = React.useState(false) ;
   const [spriteOrniny, setSpriteOrniny] = React.useState(Orniny.image);
 
   useEffect(() => {
-    load(compteurPhy,compteurMent,compteurSas) ;
+    load(compteurPhy,compteurMent,compteurSas,compteurPoids) ;
     if (compteurPhy > 100) {
       setCompteurPhy(0);
     }
@@ -76,10 +78,13 @@ export default function HomeScreen({ route, navigation }) {
     if (compteurSas > 100) {
       setCompteurSas(0);
     } 
-  }, [compteurPhy, compteurMent, compteurSas]);
+    if (compteurPoids > 240) {
+      setCompteurPoids(0);
+    } 
+  }, [compteurPhy, compteurMent, compteurSas, compteurPoids]);
 
 
-  const load = (compteurPhy,compteurMent,compteurSas) => {
+  const load = (compteurPhy,compteurMent,compteurSas,compteurPoids) => {
     Animated.parallel([Animated.timing(counterPhy, {
       toValue: compteurPhy,
       duration: 500,
@@ -90,6 +95,10 @@ export default function HomeScreen({ route, navigation }) {
       useNativeDriver: false,
     }),Animated.timing(counterSas, {
       toValue: compteurSas,
+      duration: 500,
+      useNativeDriver: false,
+    }), Animated.timing(counterPoids, {
+      toValue: compteurPoids,
       duration: 500,
       useNativeDriver: false,
     })]).start();
@@ -108,6 +117,11 @@ const widthMent = counterMent.interpolate({
 })
 const widthSas = counterSas.interpolate({
   inputRange: [0, 100],
+  outputRange: ["0%", "100%"],
+  extrapolate: "clamp"
+})
+const widthPoids = counterPoids.interpolate({
+  inputRange: [40, 240],
   outputRange: ["0%", "100%"],
   extrapolate: "clamp"
 })
@@ -231,6 +245,8 @@ const widthSas = counterSas.interpolate({
     if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
+    setCompteurPoids(Orniny.poids);
+    prompt(compteurPoids);
 
 
     if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
@@ -256,11 +272,11 @@ const widthSas = counterSas.interpolate({
       {/* BARRE DU HAUT */}
       <View style={styles.bordureHaut}>
       
-      <View style={{width:'35%',height:'90%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
+      <View style={{width:'35%',height:'90%',alignItems:'center',justifyContent:'space-between',flexDirection:'row'}}>
   
-
+      <View style={{width:"50%",height:"100%",top:0,alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-    <Text style={[styles.titre,styles.vert,{fontSize:15,width:"20%"}]}>Santé</Text>
+    <Text style={[styles.titre,styles.vert,{fontSize:15,width:"25%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
         <Animated.View
           style={
@@ -270,7 +286,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.jaune,{fontSize:15,width:"20%"}]}>Bonheur</Text>
+      <Text style={[styles.titre,styles.jaune,{fontSize:15,width:"25%"}]}>Bonheur</Text>
       <View style={styles.progressBarJ}>
       
         <Animated.View
@@ -279,9 +295,11 @@ const widthSas = counterSas.interpolate({
             { backgroundColor: 'rgb(255,251,162)', width:widthMent })
           }></Animated.View>
       </View></View>
+      </View>
 
+      <View style={{width:"50%",height:"100%",top:0,alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.bleu,{fontSize:15,width:"20%"}]}>Faim</Text>
+      <Text style={[styles.titre,styles.bleu,{fontSize:15,width:"25%"}]}>Faim</Text>
       <View style={styles.progressBarB}>
         <Animated.View
           style={
@@ -289,6 +307,19 @@ const widthSas = counterSas.interpolate({
             { backgroundColor: "rgb(122,213,252)", width:widthSas })
           }></Animated.View>
       </View></View>
+
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
+      <Text style={[styles.titre,styles.rouge,{fontSize:15,width:"25%"}]}>Poids</Text>
+      <View style={styles.progressBarR}>
+        <Animated.View
+          style={
+            ([StyleSheet.absoluteFill], 
+            { backgroundColor: "rgb(245,123,123)", width:widthPoids })
+          }></Animated.View>
+      </View></View>
+
+
+      </View>
       </View>
       
       <View style={{flexGrow:1,height:'100%',justifyContent:'center',alignItems:'center',flexDirection: 'row'}}>
@@ -650,6 +681,15 @@ buttonRepos: {
     width: '50%',
     backgroundColor: "rgb(68,73,123)",
     borderColor: "rgb(122,213,252)",
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  progressBarR: {
+    height: 10,
+    flexDirection: 'row',
+    width: '50%',
+    backgroundColor: "rgb(68,73,123)",
+    borderColor: "rgb(245,123,123)",
     borderWidth: 2,
     borderRadius: 5,
   },
