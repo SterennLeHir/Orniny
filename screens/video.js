@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Butt
 import { Dimensions, TouchableWithoutFeedback, YellowBox } from 'react-native-web';
 import MenuCool from '../components/MenuCool' ;
 
-export default function video({ route, navigation }) {
+export default function Video({ route, navigation }) {
     let Orniny = route.params;
   return (
     <View>
@@ -196,13 +196,6 @@ flexDirection:"row"
     height: "100%",
     alignItems:"center",
     alignSelf:"auto"
-  },
-  item: {
-    margintop: 24,
-    padding: 30,
-    backgroundColor: '#44497B',
-    fontSize: 24
-
   },
   titreSport: {
     

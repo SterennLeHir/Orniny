@@ -107,7 +107,7 @@ const widthSas = counterSas.interpolate({
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
-        <View style={{height:"30%",top:"5%",bottom:"10%",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        <View style={{height:"90%",top:0,flexDirection:"column",justifyContent:"center",alignItems:"center",marginHorizontal:15}}>
           <DraxView
             key = {aliment.image}
             style={[styles.centeredContent, styles.draggableBox]}
@@ -117,9 +117,9 @@ const widthSas = counterSas.interpolate({
             dragPayload={aliment}
             longPressDelay={0}
           >
-            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:25,width:25}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
+            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={{top:0,height:"100%",width:"100%"}} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
-          <Text style= {{position:"absolute",left:"10%", height:"10%",width:"85%",fontFamily:"NotoSans", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
+          <Text style= {{position:"absolute",top:"75%",left:"10%", height:"10%",width:"80%",fontFamily:"NotoSans", fontSize: 10,color:"rgb(255,255,255)", textAlign:"center"}}>{aliment.nom}</Text>
           </View>
           ))}
       </ScrollView>
@@ -339,12 +339,13 @@ const widthSas = counterSas.interpolate({
       </View>
 
       <View style={styles.Milieu} ></View>
-
+      
+      <View style={styles.Droit}>
       <TouchableOpacity style = {styles.button} onPress={actualiseOrniny}>
                 <Text style = {{fontFamily: 'Pacifico', color: "rgb(122,213,252)", fontSize: 15,textAlign:'center' }}> Repas terminé </Text>
       </TouchableOpacity>
       <DraxView
-          style={styles.Droit}
+          style={{height:"50%",width:"100%"}}
           receivingStyle={styles.receiving}
           renderContent={({ viewState }) => {
             const receivingDrag = viewState && viewState.receivingDrag;
@@ -362,6 +363,7 @@ const widthSas = counterSas.interpolate({
 
           }}
         />
+        </View>
        
       </View>
      </ImageBackground>
@@ -384,14 +386,14 @@ const styles = StyleSheet.create({
   containerList: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent:'center',
+    top:0,
+    height:"100%"
   },
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent:'space-around',
-    alignItems: "center",
-
+    top:0,
+    height:"100%"
   },
   PartieGauche: {
     height: "100%",
@@ -423,9 +425,12 @@ const styles = StyleSheet.create({
     width: "33%",
   },
   Droit:{
-    height: "50%",
+    height: "100%",
     width: "34%",
     alignSelf:"flex-end",
+    flexDirection:"column",
+    justifyContent:"space-evenly",
+    alignItems:"center",
   },
   imageFond: {
     width: "100%",
@@ -446,7 +451,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   bordure : {
-    height:"10%",
+    flex:12,
     flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
@@ -456,11 +461,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
-  image: {
-    width: 50,
-    height: 50,
-    flex:1,
-  },
+
 
   // View case :
 
@@ -492,15 +493,16 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: '10%', 
+    width: '30%', 
     height: '10%',
-    justifyContent : 'right', 
+    justifyContent : 'center', 
     alignContent:'center',
     margin:'auto', 
     marginBottom:'1%',
     borderRadius:10,
     borderColor:"rgb(122,213,252)",
     borderWidth: 3,
+    backgroundColor:"rgba(58,115,167,0.5)"
 },
   // Texte :
   titre:{
