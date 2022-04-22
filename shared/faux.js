@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import AwesomeAlert from 'react-native-awesome-alerts';
 
-export default class App extends React.Component {
+export default class faux extends React.Component {
 
   constructor(props) {
     super(props);
@@ -27,27 +27,25 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-
-        <Text>I'm AwesomeAlert</Text>
         <TouchableOpacity onPress={() => {
           this.showAlert();
         }}>
           <View style={styles.button}>
-            <Text style={styles.text}>Try me!</Text>
+            <Text style={styles.text}>faux</Text>
           </View>
         </TouchableOpacity>
 
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
-          title="AwesomeAlert"
-          message="I have a message for you!"
-          closeOnTouchOutside={true}
+          title="mauvaise réponse"
+          message="les yaourts rendent les os solide a l'aide du calcium , reviens demain pour une autre question"
+          closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
-          showCancelButton={true}
+          showCancelButton={false}
           showConfirmButton={true}
-          cancelText="No, cancel"
-          confirmText="Yes, delete it"
+          cancelText="a"
+          confirmText="page d'acceuille"
           confirmButtonColor="#DD6B55"
           onCancelPressed={() => {
             this.hideAlert();
