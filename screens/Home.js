@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
   button: {
     width: '10%', 
     height: '10%',
-    justifyContent : 'right', 
+    justifyContent : 'flex-end', 
     alignContent:'center',
     margin:'auto', 
     marginBottom:'1%',

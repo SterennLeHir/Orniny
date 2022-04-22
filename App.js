@@ -5,8 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login.js';
 import Home from './screens/Home';
-import Recette from './screens/recette';
-import Video from "./screens/video";
+import Recette from './screens/Recette';
+import Video from "./screens/Video";
 import Sport from "./screens/Sport";
 
 export default function App() {

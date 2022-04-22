@@ -176,16 +176,7 @@ flexDirection:"row"
     alignItems:"center",
     alignSelf:"auto"
   },
-  item: {
-    margintop: 24,
-    padding: 30,
-    backgroundColor: '#44497B',
-    fontSize: 24
-
-  },
-  titreSport: {
-    
-    
+  titreSport: {    
     width:"40%",
     height:"10%",
     marginTop:"2%",

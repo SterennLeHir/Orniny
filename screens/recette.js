@@ -173,7 +173,7 @@ alignSelf:"center",
 flexDirection:"row"
 },
   Imagelist: {
-    blurRadius:5,
+    borderRadius:5,
     marginLeft:"5%",
     width: "20%",
     height: "90%",
@@ -181,16 +181,7 @@ flexDirection:"row"
     alignSelf:"center",
     alignContent:"center"
   },
-  item: {
-    margintop: 24,
-    padding: 30,
-    backgroundColor: '#44497B',
-    fontSize: 24
-
-  },
   titreSport: {
-    
-    
     width:"40%",
     height:"10%",
     marginTop:"2%",
