@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ImageBackground, Pressable } from 'react-native';
+import { Image, StyleSheet, Text, View, ImageBackground,Button, Pressable } from 'react-native';
 import { Dimensions } from 'react-native-web';
+import MenuCool from '../components/MenuCool' ;
 
-
-export default function App() {
+export default function  quiz ({ route, navigation }) {
+    let Orniny = route.params;
   return (
     <View>
     <View style={styles.bordureHaut}>
@@ -15,7 +16,9 @@ export default function App() {
         <Text style={[styles.titre,styles.vert]}>n</Text>
         <Text style={[styles.titre,styles.bleu]}>y</Text>
     </View>
-    
+    <View style={{height:"100%",position:"absolute",right:"2%"}}>
+        <MenuCool navigation= {navigation} params= {Orniny}/>
+    </View>
     </View>
 
        <View style={styles.container}>
@@ -32,16 +35,22 @@ export default function App() {
     </View>
 <View style= {styles.zonequizz}>
     
-      <Text style={styles.question}>Pas de chance, c'est la mauvaise réponse</Text>
-        <Image source= {require('./assets/smileypascontent.png')} style={styles.smiley}/>
+      <Text style={styles.question}>les yaourts rendent-ils nos os solides ?</Text>
+      
+        <Image source= {require('./assets/OrninyThinking.png')} style={styles.orniny}/>
 
       
       
-     <View style = {styles.boutonmilieu}>
+     <View style = {styles.boutongauche}>
       
       
-    <Pressable onPress={boutonretouracceuil}>
-    <Text style = {styles.textButton}>retour a l'acceuil</Text>
+    <Pressable onPress={boutonvrai}>
+    <Text style = {styles.textButton}>Vrai</Text>
+    </Pressable>
+     </View>
+     <View style= {styles.boutondroite}>
+     <Pressable onPress={boutonfaux} >
+     <Text style = {styles.textButton}>Faux</Text>
     </Pressable>
      </View>
     </View>
@@ -51,14 +60,15 @@ export default function App() {
   )
 }
 
-const boutonretouracceuil =() =>{
+const boutonvrai =() =>{
   
   
   
 }
-
+const boutonfaux =() =>{
   
 
+  }
   
 
 
@@ -100,15 +110,12 @@ container: {
   width:"100%",
   height:"100%"
   
-  },
-  
-  
- 
+  }, 
   back: {
     width: windowWidth * 1,
     height: windowHeight * 1,
   },
- 
+
   titreSport: {
     
     
@@ -123,6 +130,8 @@ container: {
     borderBottomColor:"rgb(87,241,167)",
     borderBottomWidth:1,
 },
+
+
 zonequizz: {
   width : "70%",
   alignSelf:'center',
@@ -137,32 +146,44 @@ position:'absolute',
 alignSelf :'center',
 fontSize:30
 },
-boutonmilieu:{
+boutongauche:{
   width:"22%",
   height:"15%",
   justifyContent:'center',
- alignSelf:"center",
+ alignSelf:"flex-start",
  borderRadius: 10,
  borderColor:"rgb(255,251,162)",
  borderWidth: 3,
-alignItems: "center",
-alignContent:"center",
-  marginTop:"40%"
-   
+   alignItems: "center",
+  marginLeft:"5%",
+  position:"absolute",
+  top:"70%"
+},
+boutondroite:{
+  width:"22%",
+ height:"15%",
+ justifyContent:'center',
+ position:"absolute",
+ top:"70%",
+alignSelf:"flex-end",
+borderRadius: 10,
+borderColor:"rgb(255,251,162)",
+borderWidth: 3,
+  alignItems: "center",
+  marginRight:"5%"
+},
+orniny: {
+  alignItems:'center',
+  alignSelf:"center",
+  width:"30%",
+  height:"60%",
+  position:"absolute",
+  top:"20%"
 },
 textButton:{
   fontFamily:"Pacifico",
 
   fontSize: 30,
   color:"rgb(255,251,162)",
-},
-smiley:{
-alignSelf:"center",
-alignContent:"center",
-alignItems:"center",
-width:"25%",
-height:"41%",
-position:"absolute",
-top:"23%"
 },
 });

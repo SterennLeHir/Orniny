@@ -1,9 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View, ImageBackground, Pressable } from 'react-native';
 import { Dimensions } from 'react-native-web';
+import MenuCool from '../components/MenuCool' ;
 
-
-export default function App() {
+export default function mauvaisereponse({ route, navigation }) {
+    let Orniny = route.params;
   return (
     <View>
     <View style={styles.bordureHaut}>
@@ -15,7 +16,9 @@ export default function App() {
         <Text style={[styles.titre,styles.vert]}>n</Text>
         <Text style={[styles.titre,styles.bleu]}>y</Text>
     </View>
-    
+    <View style={{height:"100%",position:"absolute",right:"2%"}}>
+        <MenuCool navigation= {navigation} params= {Orniny}/>
+        </View>
     </View>
 
        <View style={styles.container}>
@@ -33,8 +36,7 @@ export default function App() {
 <View style= {styles.zonequizz}>
     
       <Text style={styles.question}>Pas de chance, c'est la mauvaise réponse</Text>
-        <Image source= {require('./assets/smileypascontent.png')} style={styles.smiley}/>
-
+<Image source={require('./assets/smileypascontent.png')} style={styles.smiley}></Image>
       
       
      <View style = {styles.boutonmilieu}>
@@ -157,12 +159,12 @@ textButton:{
   color:"rgb(255,251,162)",
 },
 smiley:{
-alignSelf:"center",
-alignContent:"center",
-alignItems:"center",
-width:"25%",
-height:"41%",
-position:"absolute",
-top:"23%"
+    alignSelf:"center",
+    alignContent:"center",
+    alignItems:"center",
+    width:"25%",
+    height:"41%",
+    position:"absolute",
+    top:"23%"
 },
 });
