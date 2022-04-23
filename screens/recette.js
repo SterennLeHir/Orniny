@@ -5,7 +5,7 @@ import * as OpenAnything from "react-native-openanything";
 import MenuCool from '../components/MenuCool' ;
 
 
-export default function recettefonction({ route, navigation }) {
+export default function Recettefonction({ route, navigation }) {
     let Orniny = route.params;
   return (
     
@@ -173,7 +173,6 @@ alignSelf:"center",
 flexDirection:"row"
 },
   Imagelist: {
-    borderRadius:5,
     marginLeft:"5%",
     width: "20%",
     height: "90%",

@@ -33,6 +33,7 @@ export default function App() {
           <Stack.Screen name = "Sport" component= {Sport} options = {{title : 'Sport'}}/>
           <Stack.Screen name="Recettes" component={Recette} options={{ title: 'Recettes' }} />
           <Stack.Screen name="Videos" component={Video} options={{ title: 'Videos' }} />
+
           <Stack.Screen name="Quiz" component={Quiz} options={{ title: 'Quiz' }} />
           <Stack.Screen name="Vrai" component={Vrai} options={{ title: 'Bonne réponse' }} />
           <Stack.Screen name="Faux" component={Faux} options={{ title: 'mauvaise réponse' }} />

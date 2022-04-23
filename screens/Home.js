@@ -3,6 +3,13 @@ import { useEffect, useRef } from 'react';
 import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
+import fondNuit from '../assets/fondNuit.jpg';
+import OrninyRepos from '../assets/OrninyQuiDort.png';
+import OrninyObese from '../assets/OrninyObese.png';
+import OrninyGros from '../assets/OrninyGros.png';
+import OrninyBeauBebe from '../assets/OrninyBeauBebe.png';
+import OrninyIdeal from '../assets/OrninyIdeal.png';
+import OrninyMaigre from '../assets/OrninyMaigre.png';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -49,14 +56,19 @@ export default function HomeScreen({ route, navigation }) {
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
+  const [compteurPoids, setCompteurPoids] = React.useState(Orniny.poids);
 
 
   const counterPhy = useRef(new Animated.Value(0)).current;
   const counterMent = useRef(new Animated.Value(0)).current;
   const counterSas = useRef(new Animated.Value(0)).current;
+  const counterPoids = useRef(new Animated.Value(0)).current;
+
+  const [dodo, setDodo] = React.useState(false) ;
+  const [spriteOrniny, setSpriteOrniny] = React.useState(Orniny.image);
 
   useEffect(() => {
-    load(compteurPhy,compteurMent,compteurSas) ;
+    load(compteurPhy,compteurMent,compteurSas,compteurPoids) ;
     if (compteurPhy > 100) {
       setCompteurPhy(0);
     }
@@ -66,10 +78,13 @@ export default function HomeScreen({ route, navigation }) {
     if (compteurSas > 100) {
       setCompteurSas(0);
     } 
-  }, [compteurPhy, compteurMent, compteurSas]);
+    if (compteurPoids > 240) {
+      setCompteurPoids(0);
+    } 
+  }, [compteurPhy, compteurMent, compteurSas, compteurPoids]);
 
 
-  const load = (compteurPhy,compteurMent,compteurSas) => {
+  const load = (compteurPhy,compteurMent,compteurSas,compteurPoids) => {
     Animated.parallel([Animated.timing(counterPhy, {
       toValue: compteurPhy,
       duration: 500,
@@ -80,6 +95,10 @@ export default function HomeScreen({ route, navigation }) {
       useNativeDriver: false,
     }),Animated.timing(counterSas, {
       toValue: compteurSas,
+      duration: 500,
+      useNativeDriver: false,
+    }), Animated.timing(counterPoids, {
+      toValue: compteurPoids,
       duration: 500,
       useNativeDriver: false,
     })]).start();
@@ -101,13 +120,18 @@ const widthSas = counterSas.interpolate({
   outputRange: ["0%", "100%"],
   extrapolate: "clamp"
 })
+const widthPoids = counterPoids.interpolate({
+  inputRange: [40, 240],
+  outputRange: ["0%", "100%"],
+  extrapolate: "clamp"
+})
 
   function AlimentsBar(){
     return(
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
       {aliments.map((aliment) => (
-        <View style={{height:"30%",top:"5%",bottom:"10%",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        <View style={{height:"90%",top:0,flexDirection:"column",justifyContent:"center",alignItems:"center",marginHorizontal:15}}>
           <DraxView
             key = {aliment.image}
             style={[styles.centeredContent, styles.draggableBox]}
@@ -117,9 +141,9 @@ const widthSas = counterSas.interpolate({
             dragPayload={aliment}
             longPressDelay={0}
           >
-            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={[styles.image,{height:25,width:25}]} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
+            <Image key = {aliment.image} source={aliment.image} resizeMode="contain" style={{top:0,height:"100%",width:"100%"}} data = {[aliment.ptsMental, aliment.ptsPhysique, aliment.type]}></Image>
           </DraxView>
-          <Text style= {{position:"absolute",left:"10%", height:"10%",width:"85%",fontFamily:"NotoSans", fontSize: 10,color:"rgb(255,255,255)",alignSelf:'center'}}>{aliment.nom}</Text>
+          <Text style= {{position:"absolute",top:"75%",left:"10%", height:"10%",width:"80%",fontFamily:"NotoSans", fontSize: 10,color:"rgb(255,255,255)", textAlign:"center"}}>{aliment.nom}</Text>
           </View>
           ))}
       </ScrollView>
@@ -221,8 +245,23 @@ const widthSas = counterSas.interpolate({
     if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
+    setCompteurPoids(Orniny.poids);
+    prompt(compteurPoids);
+
+
+    if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
+    else if (Orniny.poids > 160) { setSpriteOrniny(OrninyGros) ; Orniny.image = OrninyGros ; }
+    else if (Orniny.poids > 120) { setSpriteOrniny(OrninyBeauBebe) ; Orniny.image = OrninyBeauBebe ; }
+    else if (Orniny.poids > 80) { setSpriteOrniny(OrninyIdeal) ; Orniny.image = OrninyIdeal ; }
+    else { setSpriteOrniny(OrninyMaigre) ; Orniny.image = OrninyMaigre ; }
+    
   }
 
+  function repos() {
+    dodo ? setDodo(false) : setDodo(true) ;
+    
+  }
+  
   return (
     < GestureHandlerRootView style={{flex:1}}>
     <DraxProvider>
@@ -233,11 +272,11 @@ const widthSas = counterSas.interpolate({
       {/* BARRE DU HAUT */}
       <View style={styles.bordureHaut}>
       
-      <View style={{width:'35%',height:'90%',alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
+      <View style={{width:'35%',height:'90%',alignItems:'center',justifyContent:'space-between',flexDirection:'row'}}>
   
-
+      <View style={{width:"50%",height:"100%",top:0,alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-    <Text style={[styles.titre,styles.vert,{fontSize:15,width:"20%"}]}>Santé</Text>
+    <Text style={[styles.titre,styles.vert,{fontSize:15,width:"25%"}]}>Santé</Text>
     <View style={styles.progressBarV}>
         <Animated.View
           style={
@@ -247,7 +286,7 @@ const widthSas = counterSas.interpolate({
       </View></View>
 
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.jaune,{fontSize:15,width:"20%"}]}>Bonheur</Text>
+      <Text style={[styles.titre,styles.jaune,{fontSize:15,width:"25%"}]}>Bonheur</Text>
       <View style={styles.progressBarJ}>
       
         <Animated.View
@@ -256,9 +295,11 @@ const widthSas = counterSas.interpolate({
             { backgroundColor: 'rgb(255,251,162)', width:widthMent })
           }></Animated.View>
       </View></View>
+      </View>
 
+      <View style={{width:"50%",height:"100%",top:0,alignItems:'center',justifyContent:'space-between',flexDirection:'column'}}>
       <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
-      <Text style={[styles.titre,styles.bleu,{fontSize:15,width:"20%"}]}>Faim</Text>
+      <Text style={[styles.titre,styles.bleu,{fontSize:15,width:"25%"}]}>Faim</Text>
       <View style={styles.progressBarB}>
         <Animated.View
           style={
@@ -266,6 +307,19 @@ const widthSas = counterSas.interpolate({
             { backgroundColor: "rgb(122,213,252)", width:widthSas })
           }></Animated.View>
       </View></View>
+
+      <View style={{flexDirection:'row',justifyContent:'center',flexWrap:"nowrap",width:"100%",height:"33%",alignItems:'center',flexGrow:1}}>
+      <Text style={[styles.titre,styles.rouge,{fontSize:15,width:"25%"}]}>Poids</Text>
+      <View style={styles.progressBarR}>
+        <Animated.View
+          style={
+            ([StyleSheet.absoluteFill], 
+            { backgroundColor: "rgb(245,123,123)", width:widthPoids })
+          }></Animated.View>
+      </View></View>
+
+
+      </View>
       </View>
       
       <View style={{flexGrow:1,height:'100%',justifyContent:'center',alignItems:'center',flexDirection: 'row'}}>
@@ -280,13 +334,17 @@ const widthSas = counterSas.interpolate({
 
       <View style={{width:'35%',height:'100%',flexDirection: 'row-reverse'}}>
       <MenuCool navigation= {navigation} params ={Orniny}/>
+      <TouchableOpacity style = {styles.buttonRepos} onPress={repos}>
+                <Text style = {{fontFamily: 'Pacifico', color: "rgb(245,123,123)"
+                , fontSize: 15,textAlign:'center' }}> Repos </Text>
+      </TouchableOpacity>
       </View>
 
       </View>
 
       {/* CONTENU PRINCIPAL */}
 
-      <ImageBackground source={fond} resizeMode="stretch" style = {{flex:64}}>
+      <ImageBackground source={dodo ? fondNuit : fond} resizeMode="stretch" style = {{flex:64}}>
 
       <View style={styles.imageFond}>
     
@@ -341,19 +399,20 @@ const widthSas = counterSas.interpolate({
       </View>
 
       <View style={styles.Milieu} ></View>
-
+      
+      <View style={styles.Droit}>
       <TouchableOpacity style = {styles.button} onPress={actualiseOrniny}>
                 <Text style = {{fontFamily: 'Pacifico', color: "rgb(122,213,252)", fontSize: 15,textAlign:'center' }}> Repas terminé </Text>
       </TouchableOpacity>
       <DraxView
-          style={styles.Droit}
+          style={{height:"50%",width:"100%"}}
           receivingStyle={styles.receiving}
           renderContent={({ viewState }) => {
             const receivingDrag = viewState && viewState.receivingDrag;
             const payload = receivingDrag && receivingDrag.payload;
             return (
               <>
-              <Image source={Orniny.image} resizeMode="contain" style={styles.OrninyStyle}></Image>
+              <Image source={dodo ? OrninyRepos : spriteOrniny} resizeMode="contain" style={styles.OrninyStyle}></Image>
 
               </>
             );
@@ -364,13 +423,14 @@ const widthSas = counterSas.interpolate({
 
           }}
         />
+        </View>
        
       </View>
      </ImageBackground>
 
     
     {/* BARRE DU BAS */}
-    <View style={styles.bordure}>
+    <View style={styles.bordure} pointerEvents={dodo ? 'none' : 'auto'}>
       <AlimentsBar />
     </View>
 
@@ -386,14 +446,14 @@ const styles = StyleSheet.create({
   containerList: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent:'center',
+    top:0,
+    height:"100%"
   },
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent:'space-around',
-    alignItems: "center",
-
+    top:0,
+    height:"100%"
   },
   PartieGauche: {
     height: "100%",
@@ -425,9 +485,12 @@ const styles = StyleSheet.create({
     width: "33%",
   },
   Droit:{
-    height: "50%",
+    height: "100%",
     width: "34%",
     alignSelf:"flex-end",
+    flexDirection:"column",
+    justifyContent:"space-evenly",
+    alignItems:"center",
   },
   imageFond: {
     width: "100%",
@@ -448,7 +511,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   bordure : {
-    height:"10%",
+    flex:12,
     flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
@@ -458,11 +521,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: "rgb(68,73,123)"
   },
-  image: {
-    width: 50,
-    height: 50,
-    flex:1,
-  },
+
 
   // View case :
 
@@ -494,15 +553,26 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: '10%', 
+    width: '30%', 
     height: '10%',
-    justifyContent : 'flex-end', 
+    justifyContent : 'center', 
     alignContent:'center',
     margin:'auto', 
     marginBottom:'1%',
     borderRadius:10,
     borderColor:"rgb(122,213,252)",
     borderWidth: 3,
+    backgroundColor:"rgba(58,115,167,0.5)"
+},
+buttonRepos: {
+  width: '30%', 
+  height: '60%',
+  justifyContent : 'center', 
+  alignContent:'center',
+  margin:'auto', 
+  borderRadius:10,
+  borderColor:"rgb(245,123,123)",
+  borderWidth: 3,
 },
   // Texte :
   titre:{
@@ -613,6 +683,15 @@ const styles = StyleSheet.create({
     width: '50%',
     backgroundColor: "rgb(68,73,123)",
     borderColor: "rgb(122,213,252)",
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  progressBarR: {
+    height: 10,
+    flexDirection: 'row',
+    width: '50%',
+    backgroundColor: "rgb(68,73,123)",
+    borderColor: "rgb(245,123,123)",
     borderWidth: 2,
     borderRadius: 5,
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View, ImageBackground, FlatList, Linking, Button ,Pressable } from 'react-native';
 import MenuCool from '../components/MenuCool' ;
 
-export default function video({ route, navigation }) {
+export default function Video({ route, navigation }) {
     let Orniny = route.params;
   return (
     <View>

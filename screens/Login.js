@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View ,ImageBackground} from 'react-native';
 import fond from '../assets/fond.jpg';
-import img from '../assets/Orniny_FAT.png';
+import img from '../assets/OrninyObese.png';
 import ConnexionCard from "../components/ConnexionCard";
 
 export default function Login({navigation}) {
