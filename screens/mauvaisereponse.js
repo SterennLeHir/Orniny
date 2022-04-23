@@ -36,14 +36,14 @@ export default function mauvaisereponse({ route, navigation }) {
 <View style= {styles.zonequizz}>
     
       <Text style={styles.question}>Pas de chance, c'est la mauvaise réponse</Text>
-<Image source={require('../assets/smileypascontent.png')} style={styles.smiley}></Image>
+<Image source={require('../assets/smileypascontent.png')} style={styles.smiley} resizeMode="contain"></Image>
       
       
      <View style = {styles.boutonmilieu}>
       
       
     <Pressable onPress={()=> navigation.navigate('Home',Orniny)}>
-    <Text style = {styles.textButton}>retour a l'accueil</Text>
+    <Text style = {styles.textButton}>Retour a l'accueil</Text>
     </Pressable>
      </View>
     </View>
@@ -149,8 +149,8 @@ alignContent:"center",
 },
 textButton:{
   fontFamily:"Pacifico",
-
-  fontSize: 30,
+  textAlign:'center',
+  fontSize: 25,
   color:"rgb(255,251,162)",
 },
 smiley:{
@@ -160,6 +160,7 @@ smiley:{
     width:"25%",
     height:"41%",
     position:"absolute",
-    top:"23%"
+    top:"23%",
+    
 },
 });

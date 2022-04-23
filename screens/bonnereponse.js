@@ -37,7 +37,7 @@ export default function bonnereponse({ route, navigation }) {
 <View style= {styles.zonequizz}>
     
       <Text style={styles.question}>Bravo, c'est la bonne réponse</Text>
-        <Image source= {require('../assets/smiley_content.png')} style={styles.smiley}/>
+        <Image source= {require('../assets/smiley_content.png')} style={styles.smiley} resizeMode="contain"/>
 
       
       
@@ -45,7 +45,7 @@ export default function bonnereponse({ route, navigation }) {
       
       
     <Pressable onPress={()=> navigation.navigate('Home',Orniny)}>
-    <Text style = {styles.textButton}>retour à l'accueil</Text>
+    <Text style = {styles.textButton}>Retour à l'accueil</Text>
     </Pressable>
      </View>
     </View>
@@ -151,8 +151,8 @@ alignContent:"center",
 },
 textButton:{
   fontFamily:"Pacifico",
-
-  fontSize: 30,
+  textAlign:'center',
+  fontSize: 25,
   color:"rgb(255,251,162)",
 },
 smiley:{

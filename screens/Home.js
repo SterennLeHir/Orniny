@@ -246,7 +246,6 @@ const widthPoids = counterPoids.interpolate({
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
     setCompteurPoids(Orniny.poids);
-    prompt(compteurPoids);
 
 
     if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
