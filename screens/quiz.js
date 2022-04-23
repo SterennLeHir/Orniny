@@ -35,7 +35,7 @@ export default function  Quiz ({ route, navigation }) {
     </View>
 <View style= {styles.zonequizz}>
     
-      <Text style={styles.question}>les yaourts rendent-ils nos os solides ?</Text>
+      <Text style={styles.question}>Les yaourts rendent-ils nos os solides ?</Text>
       
         <Image source= {require('../assets/OrninyThinking.png')} style={styles.orniny}/>
 

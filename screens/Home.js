@@ -359,7 +359,7 @@ const widthPoids = counterPoids.interpolate({
         <Text style={[styles.titre,styles.jaune]}>z</Text>
         </View>
 
-      <Text style={styles.desc}>Voici le quiz du jour. Répond bien pour gagner des points !</Text>
+      <Text style={styles.desc}>Voici le quiz du jour. Apprend en t'amusant !</Text>
       
       <View style={styles.bouton}>
       <Pressable onPress={() => navigation.navigate('Quiz',Orniny)}>
@@ -383,7 +383,7 @@ const widthPoids = counterPoids.interpolate({
         <Text style={[styles.titre,styles.jaune]}>t</Text>
         </View>
 
-        <Text style={styles.desc}>Fais du sport pour gagner encore plus de points !</Text>
+        <Text style={styles.desc}>Fais du sport pour améliorer la santé d'Orniny et la tienne !</Text>
 
         <View style={styles.bouton} >
           <Pressable onPress={() => navigation.navigate('Sport',Orniny)}>

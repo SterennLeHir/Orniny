@@ -36,7 +36,7 @@ export default function bonnereponse({ route, navigation }) {
     </View>
 <View style= {styles.zonequizz}>
     
-      <Text style={styles.question}>Bravo, c'est la bonne réponse</Text>
+      <Text style={styles.question}>Bravo, c'est la bonne réponse !</Text>
         <Image source= {require('../assets/smiley_content.png')} style={styles.smiley} resizeMode="contain"/>
 
       

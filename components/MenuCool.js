@@ -40,16 +40,16 @@ const toVideo= () => {
         onRequestClose={hideMenu}
         style={{ backgroundColor: "rgb(68,73,123)"}}
       >
-        <MenuItem textStyle = {styles.page} style={{borderColor:"rgb(60,68,96)",borderBottomWidth:2}} onPress={toHome}>
+        <MenuItem textStyle = {styles.vert}  onPress={toHome}>
             Home
       </MenuItem>
-      <MenuItem textStyle = {styles.page} style={{borderColor:"rgb(60,68,96)",borderBottomWidth:2}} onPress={toRecette}>
+      <MenuItem textStyle = {styles.bleu}  onPress={toRecette}>
             Recettes
       </MenuItem>    
-      <MenuItem textStyle = {styles.page} style={{borderColor:"rgb(60,68,96)",borderBottomWidth:2}} onPress={toVideo}>
+      <MenuItem textStyle = {styles.jaune}  onPress={toVideo}>
             Vidéos
       </MenuItem>   
-      <MenuItem textStyle = {styles.page} onPress={toLogin}>
+      <MenuItem textStyle = {styles.rouge} onPress={toLogin}>
             Déconnexion
       </MenuItem>         
       </Menu>
@@ -62,15 +62,19 @@ const styles = StyleSheet.create({
     color:"rgb(255,255,255)",
   },
   vert:{
+    fontFamily:"Pacifico",
     color:"rgb(87,241,167)",
   },
   bleu:{
+    fontFamily:"Pacifico",
     color:"rgb(122,213,252)",
   },
   rouge:{
+    fontFamily:"Pacifico",
     color:"rgb(245,123,123)",
   },
   jaune:{
+    fontFamily:"Pacifico",
     color:"rgb(255,251,162)",
   },
 });
