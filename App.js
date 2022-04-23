@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet } from 'react-native';
+import { ImagePropTypes, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,7 +8,9 @@ import Home from './screens/Home';
 import Recette from './screens/Recette';
 import Video from "./screens/Video";
 import Sport from "./screens/Sport";
-
+import Quiz from "./screens/quiz";
+import Vrai from "./screens/bonnereponse"
+import Faux from "./screens/mauvaisereponse"
 export default function App() {
 
   const Stack = createNativeStackNavigator();
@@ -31,6 +33,9 @@ export default function App() {
           <Stack.Screen name = "Sport" component= {Sport} options = {{title : 'Sport'}}/>
           <Stack.Screen name="Recettes" component={Recette} options={{ title: 'Recettes' }} />
           <Stack.Screen name="Videos" component={Video} options={{ title: 'Videos' }} />
+          <Stack.Screen name="Quiz" component={Quiz} options={{ title: 'Quiz' }} />
+          <Stack.Screen name="Vrai" component={Vrai} options={{ title: 'Bonne réponse' }} />
+          <Stack.Screen name="Faux" component={Faux} options={{ title: 'mauvaise réponse' }} />
         </Stack.Navigator>
       </NavigationContainer>
     ); 
