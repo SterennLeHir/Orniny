@@ -30,22 +30,18 @@ export default function SportScreen({ route, navigation }) {
       let varSas = 0 ;
       if (nomSport == "Course à pied") {
           varPhy = 10 + 0.5 * (parseInt(textD)*parseFloat(textKm)) ;
-          varMent = -5 - 0.25 * (parseInt(textD)*parseFloat(textKm));
-          varSas = -5 - 0.25 * (parseInt(textD)*parseFloat(textKm));
+          varMent = 3 + 0.25 * (parseInt(textD)*parseFloat(textKm));
       } 
       else if (nomSport == "Ping Pong") {
         varPhy = 5 + 0.25 * parseInt(textD);
-        varMent = -5 - 0.25 * parseInt(textD);
-        varSas = 0 ;
+        varMent = 2 - 0.25 * parseInt(textD);
     } 
     else if (nomSport == "Balle au prisonnier") {
         varPhy = 5 + 0.25 * parseInt(textD);
         varMent = 5 + 0.25 * parseInt(textD);
-        varSas = -5 - 0.25 * parseInt(textD);
     } ;
-    Orniny.bonheur = Orniny.bonheur + varMent*0.1 ;
-    Orniny.sante = Orniny.sante + varPhy*0.1 ;
-    Orniny.sasiete = Orniny.sasiete + varSas*0.1 ;
+    Orniny.bonheur = Orniny.bonheur + varMent*0.01 ;
+    Orniny.sante = Orniny.sante + varPhy*0.01 ;
     setCompteurMent(Orniny.bonheur) ;
     setCompteurPhy(Orniny.sante) ;
     setCompteurSas(100 - Orniny.sasiete);
