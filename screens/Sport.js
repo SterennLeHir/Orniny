@@ -8,12 +8,12 @@ import { useEffect, useRef } from 'react';
 
 
 export default function SportScreen({ route, navigation }) {
-    let Orniny = route.params;
-    const [textD, setTextD] = React.useState('');
-    const [textKm, setTextKm] = React.useState('');
-    const [faitSport, setFaitSport] = React.useState(false);
+  let Orniny = route.params;
+  const [textD, setTextD] = React.useState('');
+  const [textKm, setTextKm] = React.useState('');
+  const [faitSport, setFaitSport] = React.useState(false);
 
-    const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
+  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
   const [compteurPoids, setCompteurPoids] = React.useState(Orniny.poids);
