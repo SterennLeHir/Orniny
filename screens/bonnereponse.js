@@ -37,7 +37,7 @@ export default function bonnereponse({ route, navigation }) {
 <View style= {styles.zonequizz}>
     
       <Text style={styles.question}>Bravo, c'est la bonne réponse !</Text>
-        <Image source= {require('../assets/smiley_content.png')} style={styles.smiley} resizeMode="contain"/>
+        <Image source= {require('../assets/PositifSansPouce.png')} style={styles.smiley} resizeMode="contain"/>
 
       
       
@@ -146,7 +146,7 @@ boutonmilieu:{
  borderWidth: 3,
 alignItems: "center",
 alignContent:"center",
-  marginTop:"40%"
+  marginTop:"41%"
    
 },
 textButton:{
@@ -159,9 +159,9 @@ smiley:{
 alignSelf:"center",
 alignContent:"center",
 alignItems:"center",
-width:"26%",
-height:"31%",
+width:"50%",
+height:"50%",
 position:"absolute",
-top:"25%"
+top:"15%"
 },
 });
