@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useRef } from 'react';
-import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
+import { Button,Modal, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import fondNuit from '../assets/fondNuit.jpg';
@@ -12,6 +12,7 @@ import OrninyIdeal from '../assets/OrninyIdeal.png';
 import OrninyMaigre from '../assets/OrninyMaigre.png';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 
 function Aliment(type, sasiete, image, ptsPhysique, ptsMental, nom) {
@@ -45,12 +46,9 @@ let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15, "Yaourt
 //tableau des aliments
 const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
 
-
-
-  
-
-
 export default function HomeScreen({ route, navigation }) {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
   let Orniny = route.params;
 
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
@@ -130,6 +128,12 @@ const widthPoids = counterPoids.interpolate({
     return(
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
+      <TouchableOpacity style={{top:"5%",marginHorizontal:15,justifyContent:"center",alignItems:"center", borderRadius:10,
+                                  borderColor:"rgb(255,251,162)", borderWidth: 3,}}
+                                  onPress={() => setModalVisible(true)}>
+        <Text style = {{fontFamily: 'Pacifico', color: "rgb(255,251,162)"
+                , fontSize: 15,textAlign:'center' }}> Informations </Text>
+        </TouchableOpacity>
       {aliments.map((aliment) => (
         <View style={{height:"90%",top:0,flexDirection:"column",justifyContent:"center",alignItems:"center",marginHorizontal:15}}>
           <DraxView
@@ -344,6 +348,26 @@ const widthPoids = counterPoids.interpolate({
       {/* CONTENU PRINCIPAL */}
 
       <ImageBackground source={dodo ? fondNuit : fond} resizeMode="stretch" style = {{flex:64}}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.buttonM, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            ><Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
 
       <View style={styles.imageFond}>
     
@@ -694,4 +718,45 @@ buttonRepos: {
     borderWidth: 2,
     borderRadius: 5,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  buttonM: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 });
