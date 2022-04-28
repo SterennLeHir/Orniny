@@ -24,32 +24,7 @@ export default function SportScreen({ route, navigation }) {
   const counterSas = useRef(new Animated.Value(0)).current;
   const counterPoids = useRef(new Animated.Value(0)).current;
 
-  function sport(nomSport) {
-      let varPhy = 0 ;
-      let varMent = 0 ;
-      if (nomSport == "Course à pied") {
-          varPhy = 10 + 0.5 * (parseInt(textD)*parseFloat(textKm)) ;
-          varMent = 3 + 0.25 * (parseInt(textD)*parseFloat(textKm));
-      } 
-      else if (nomSport == "Ping Pong") {
-        varPhy = 5 + 0.25 * parseInt(textD);
-        varMent = 2 + 0.25 * parseInt(textD);
-
-    } 
-    else if (nomSport == "Balle au prisonnier") {
-        varPhy = 5 + 0.25 * parseInt(textD);
-        varMent = 5 + 0.25 * parseInt(textD);
-    } ;
-    Orniny.bonheur = Orniny.bonheur + varMent*0.01 ;
-    Orniny.sante = Orniny.sante + varPhy*0.01 ;
-
-    Orniny.poids = Orniny.poids - varPhy*0.01 ;
-
-    setCompteurMent(Orniny.bonheur) ;
-    setCompteurPhy(Orniny.sante) ;
-    setCompteurPoids(Orniny.poids) ;
-    setFaitSport(true) ;
-  };
+  
 
   useEffect(() => {
     load(compteurPhy,compteurMent,compteurSas,compteurPoids) ;
@@ -67,7 +42,7 @@ export default function SportScreen({ route, navigation }) {
     } 
   }, [compteurPhy, compteurMent, compteurSas, compteurPoids]);
 
-  const load = (compteurPhy,compteurMent,compteurSas) => {
+  const load = (compteurPhy,compteurMent,compteurSas,compteurPoids) => {
     Animated.parallel([Animated.timing(counterPhy, {
       toValue: compteurPhy,
       duration: 500,
@@ -111,6 +86,32 @@ const widthPoids = counterPoids.interpolate({
 
 const [quelSport, setQuelSport] = React.useState('');
 
+function sport(nomSport) {
+  let varPhy = 0 ;
+  let varMent = 0 ;
+  if (nomSport == "Course à pied") {
+      varPhy = 5000 + parseInt(textD)*(3.5*Orniny.poids*(parseFloat(textKm)/(parseInt(textD)/60))/200) ;
+      varMent = 3 + 0.25 * parseInt(textD);
+  } 
+  else if (nomSport == "Ping Pong") {
+    varPhy = 5 + parseInt(textD)*(3.5*Orniny.poids*7/200);
+    varMent = 2 + 0.25 * parseInt(textD);
+
+} 
+else if (nomSport == "Balle aux prisonniers") {
+    varPhy = parseInt(textD)*(3.5*Orniny.poids*6/200);
+    varMent = 5 + 0.25 * parseInt(textD);
+} ;
+Orniny.bonheur = Orniny.bonheur + varMent*0.05 ;
+Orniny.sante = Orniny.sante + varPhy*0.001 ;
+
+Orniny.poids = Orniny.poids - varPhy*0.0007 ;
+
+setCompteurMent(Orniny.bonheur) ;
+setCompteurPhy(Orniny.sante) ;
+setCompteurPoids(Orniny.poids) ;
+setFaitSport(true) ;
+};
 
     return (
     <GestureHandlerRootView style={{flex:1}}>

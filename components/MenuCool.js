@@ -41,7 +41,7 @@ const toVideo= () => {
         style={{ backgroundColor: "rgb(68,73,123)"}}
       >
         <MenuItem textStyle = {styles.vert}  onPress={toHome}>
-            Home
+            Accueil
       </MenuItem>
       <MenuItem textStyle = {styles.bleu}  onPress={toRecette}>
             Recettes
