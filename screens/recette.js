@@ -84,7 +84,7 @@ const DATA = [
     image1: require("../assets/recette champignon.jpg"),
     imageminiature: "./assets/poireau.png",
     link: "https://www.youtube.com",
-    docpdf: ("https://drive.google.com/file/d/1ym2nhezXtOp1pjSI4myBv3kJ044K9kU7/view?usp=sharing"),
+    docpdf: ("https://drive.google.com/file/d/1ZFkdSuVlpPVYq-_pJTpDY6Mngs655Sz6/view?usp=sharing"),
 
   },
 ]
