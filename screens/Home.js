@@ -434,7 +434,7 @@ const widthPoids = counterPoids.interpolate({
         <Text style={[styles.titre,styles.jaune]}>z</Text>
         </View>
 
-      <Text style={styles.desc}>Voici le quiz du jour. Apprend en t'amusant !</Text>
+      <Text style={styles.desc}>Voici le quiz du jour. Apprends en t'amusant !</Text>
       
       <View style={styles.bouton}>
       <Pressable onPress={() => navigation.navigate('Quiz',Orniny)}>

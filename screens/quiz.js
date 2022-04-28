@@ -45,12 +45,12 @@ export default function  Quiz ({ route, navigation }) {
       
       
     <Pressable onPress={() => navigation.navigate('Vrai',Orniny)}>
-    <Text style = {styles.textButton}>Vrai</Text>
+    <Text style = {styles.textButton}>Oui</Text>
     </Pressable>
      </View>
      <View style= {styles.boutondroite}>
      <Pressable onPress={()=> navigation.navigate('Faux',Orniny) } >
-     <Text style = {styles.textButton}>Faux</Text>
+     <Text style = {styles.textButton}>Non</Text>
     </Pressable>
      </View>
     </View>

@@ -58,7 +58,7 @@ const DATA = [
   {
     id: "tomate",
     key: '1',
-    title: 'Soupe a la citrouille',
+    title: 'Soupe à la citrouille',
     petittext1:"Difficulté: 2/5",
     petittext2 :"Temps de préparation: 40 min",
     image1: require("../assets/Soupe citrouille.jpg"),
@@ -69,7 +69,7 @@ const DATA = [
     key: '2',
     petittext1:"Difficulté: 1/5",
     petittext2 :"Temps de préparation: 15min",
-    title: ' fromage blanc au framboise',
+    title: 'Fromage blanc aux framboises',
     image1: require("../assets/recette framboise.jpg"),
     imageminiature: "./assets/citrouille.png",
     link: "https://www.youtube.com",
