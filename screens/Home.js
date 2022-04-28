@@ -228,10 +228,8 @@ const widthPoids = counterPoids.interpolate({
           }
         }
         if (Orniny.ptsPhysique >= 20 && Orniny.ptsPhysique < 30){
-          prompt(Orniny.ptsPhysique)
           if (Orniny.sasiete > 50) {
             Orniny.poids += 1.5;
-            prompt(Orniny.poids);
           }
           else {
             Orniny.poids -= 1.5;
