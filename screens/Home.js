@@ -222,21 +222,21 @@ const widthPoids = counterPoids.interpolate({
           prompt(Orniny.ptsPhysique)
           if (Orniny.sasiete > 50) {
             Orniny.poids += 1.5;
-            prompt(Orniny.poids);}
+            prompt(Orniny.poids);
+          }
           else {
             Orniny.poids -= 1.5;
             Orniny.ptsMental -= 7;
           }
         }
-      }
-      if (Orniny.ptsPhysique <= 20 ){
-        if (Orniny.sasiete > 50) Orniny.poids += 2; 
-        else {
-          Orniny.poids -= 2;
-          Orniny.ptsMental -= 7;
+        if (Orniny.ptsPhysique <= 20 ){
+          if (Orniny.sasiete > 50) Orniny.poids += 2; 
+          else {
+            Orniny.poids -= 2;
+            Orniny.ptsMental -= 7;
+          }
         }
       }
-    }
     if (Orniny.sante >= 100) Orniny.sante = 100 ;
     if (Orniny.bonheur >= 100) Orniny.bonheur = 100 ;
     if (Orniny.sasiete >= 100) Orniny.sasiete = 100 ;
@@ -253,25 +253,8 @@ const widthPoids = counterPoids.interpolate({
     }
     if (Orniny.ptsMental < 60){
       Orniny.bonheur = Orniny.bonheur - (100 - Orniny.ptsMental)*0.01;
-      // Remise à 0 si nécessaire (pour les tests)
-      if (Orniny.sante >= 100) Orniny.sante = 0 ;
-      if (Orniny.bonheur >= 100) Orniny.bonheur = 0 ;
-      if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
-      // actualisation des compteurs
-      if (Orniny.ptsPhysique >= 60){
-        Orniny.sante = Orniny.sante + Orniny.ptsPhysique*0.1;
-      }
-      if (Orniny.ptsPhysique < 60){
-        Orniny.sante = Orniny.sante - (100 - Orniny.ptsPhysique)*0.01;
-      }
-      if (Orniny.ptsMental >= 60){
-        Orniny.bonheur = Orniny.bonheur + Orniny.ptsMental*0.1;
-        
-      }
-      if (Orniny.ptsMental < 60){
-        Orniny.bonheur = Orniny.bonheur - (100 - Orniny.ptsMental)*0.1;
-        
-      }
+    }
+    
       if (Orniny.sante < 10) Orniny.bonheur -= 2; // Orniny ne peut être heureux s'il est en mauvaise santé
       if (Orniny.bonheur < 10) Orniny.sante -= 2; // Orniny ne peut pas être en bonne santé s'il n'est pas heureux
       setCompteurPhy(Orniny.sante);
@@ -288,9 +271,9 @@ const widthPoids = counterPoids.interpolate({
       else if (Orniny.poids > 160) { setSpriteOrniny(OrninyGros) ; Orniny.image = OrninyGros ; }
       else if (Orniny.poids > 120) { setSpriteOrniny(OrninyBeauBebe) ; Orniny.image = OrninyBeauBebe ; }
       else if (Orniny.poids > 80) { setSpriteOrniny(OrninyIdeal) ; Orniny.image = OrninyIdeal ; }
-      else { setSpriteOrniny(OrninyMaigre) ; Orniny.image = OrninyMaigre ; }
-    }    
+      else { setSpriteOrniny(OrninyMaigre) ; Orniny.image = OrninyMaigre ; }    
   }
+}
 
   function repos() {
     dodo ? setDodo(false) : setDodo(true) ;
