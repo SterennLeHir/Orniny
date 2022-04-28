@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useRef } from 'react';
-import { Button, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
+import { Button,Modal, Image, View ,ImageBackground, StyleSheet, Text, ScrollView,Animated, Pressable, TouchableOpacity} from 'react-native';
 import MenuCool from '../components/MenuCool'
 import fond from '../assets/fond.jpg';
 import fondNuit from '../assets/fondNuit.jpg';
@@ -12,6 +12,7 @@ import OrninyIdeal from '../assets/OrninyIdeal.png';
 import OrninyMaigre from '../assets/OrninyMaigre.png';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 
 function Aliment(type, sasiete, image, ptsPhysique, ptsMental, nom) {
@@ -45,12 +46,9 @@ let yaourt = new Aliment(3, 10, require('../assets/Yaourt.png'), 20, 15, "Yaourt
 //tableau des aliments
 const aliments = [pate, carottes, betteraves, saucisson, steak, pates, hamburger, riz, poisson, salade, moelleux, saladeFruits, tiramisu, glace, yaourt]; 
 
-
-
-  
-
-
 export default function HomeScreen({ route, navigation }) {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
   let Orniny = route.params;
 
   const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
@@ -130,6 +128,12 @@ const widthPoids = counterPoids.interpolate({
     return(
       <View style = {styles.containerList}>
       <ScrollView horizontal= {true} contentContainerStyle={styles.contentContainer}>
+      <TouchableOpacity style={{top:"5%",marginHorizontal:15,justifyContent:"center",alignItems:"center", borderRadius:10,
+                                  borderColor:"rgb(255,251,162)", borderWidth: 3,}}
+                                  onPress={() => setModalVisible(true)}>
+        <Text style = {{fontFamily: 'Pacifico', color: "rgb(255,251,162)"
+                , fontSize: 15,textAlign:'center' }}> Informations </Text>
+        </TouchableOpacity>
       {aliments.map((aliment) => (
         <View style={{height:"90%",top:0,flexDirection:"column",justifyContent:"center",alignItems:"center",marginHorizontal:15}}>
           <DraxView
@@ -225,6 +229,30 @@ const widthPoids = counterPoids.interpolate({
           }
         }
       }
+      if (Orniny.ptsPhysique <= 20 ){
+        if (Orniny.sasiete > 50) Orniny.poids += 2; 
+        else {
+          Orniny.poids -= 2;
+          Orniny.ptsMental -= 7;
+        }
+      }
+    }
+    if (Orniny.sante >= 100) Orniny.sante = 100 ;
+    if (Orniny.bonheur >= 100) Orniny.bonheur = 100 ;
+    if (Orniny.sasiete >= 100) Orniny.sasiete = 100 ;
+    // actualisation des compteurs
+    if (Orniny.ptsPhysique >= 60){
+      Orniny.sante = Orniny.sante + Orniny.ptsPhysique*0.1;
+    }
+    if (Orniny.ptsPhysique < 60){
+      Orniny.sante = Orniny.sante - (100 - Orniny.ptsPhysique)*0.01;
+    }
+    if (Orniny.ptsMental >= 60){
+      Orniny.bonheur = Orniny.bonheur + Orniny.ptsMental*0.1;
+      
+    }
+    if (Orniny.ptsMental < 60){
+      Orniny.bonheur = Orniny.bonheur - (100 - Orniny.ptsMental)*0.01;
       // Remise à 0 si nécessaire (pour les tests)
       if (Orniny.sante >= 100) Orniny.sante = 0 ;
       if (Orniny.bonheur >= 100) Orniny.bonheur = 0 ;
@@ -249,6 +277,11 @@ const widthPoids = counterPoids.interpolate({
       setCompteurPhy(Orniny.sante);
       setCompteurMent(Orniny.bonheur);
       setCompteurPoids(Orniny.poids);
+      Orniny.variete = [] ;
+      Orniny.ptsMental = 0 ;
+      Orniny.ptsPhysique = 0 ;
+      Orniny.sasiete = 0 ;
+
       
   
       if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
@@ -256,9 +289,7 @@ const widthPoids = counterPoids.interpolate({
       else if (Orniny.poids > 120) { setSpriteOrniny(OrninyBeauBebe) ; Orniny.image = OrninyBeauBebe ; }
       else if (Orniny.poids > 80) { setSpriteOrniny(OrninyIdeal) ; Orniny.image = OrninyIdeal ; }
       else { setSpriteOrniny(OrninyMaigre) ; Orniny.image = OrninyMaigre ; }
-    }
-    
-    
+    }    
   }
 
   function repos() {
@@ -349,10 +380,59 @@ const widthPoids = counterPoids.interpolate({
       {/* CONTENU PRINCIPAL */}
 
       <ImageBackground source={dodo ? fondNuit : fond} resizeMode="stretch" style = {{flex:64}}>
+     
 
       <View style={styles.imageFond}>
     
       <View style={styles.PartieGauche}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={{width:"100%",marginTop:5,height:"5%"}}><Text style = {{fontFamily: 'Pacifico', color: "rgb(122,213,252)", fontSize: 15,textAlign:"center"}}>Aliments préférés</Text></View>
+              <View style={{width:"100%",flexDirection:"row",height:"15%"}}>
+              <Image source={require('../assets/Pate.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/HamburgerFrites.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/MoelleuxAuChocolat.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/Glace.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              </View>
+              <View style={{width:"100%",marginTop:5,height:"5%"}}><Text style = {{fontFamily: 'Pacifico', color: "rgb(87,241,167)", fontSize: 15,textAlign:"center"}}>Aliments appréciés</Text></View>
+              <View style={{width:"100%",flexDirection:"row",height:"15%"}}>
+              <Image source={require('../assets/Saucisson.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/PatesBolognaises.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/Tiramisu.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              </View>
+              <View style={{width:"100%",marginTop:5,height:"5%"}}><Text style = {{fontFamily: 'Pacifico', color: 'rgb(255,251,162)', fontSize: 15,textAlign:"center"}}>Aliments neutres</Text></View>
+              <View style={{width:"100%",flexDirection:"row",height:"15%"}}>
+              <Image source={require('../assets/SteakHaricots.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/RizDinde.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/Yaourt.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              </View>
+              <View style={{width:"100%",marginTop:5,height:"5%"}}><Text style = {{fontFamily: 'Pacifico', color: "rgb(245,123,123)", fontSize: 15,textAlign:"center"}}>Aliments détestés</Text></View>
+              <View style={{width:"100%",flexDirection:"row",height:"15%"}}>
+              <Image source={require('../assets/Carottes.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/Betteraves.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/PoissonEpinards.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/SaladeComposee.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              <Image source={require('../assets/SaladeDeFruits.png')} resizeMode="contain" style={{flexGrow:1,height:"100%"}}/>
+              </View>
+            <Pressable
+              style={[styles.buttonM]}
+              onPress={() => setModalVisible(!modalVisible)}
+            ><Text style={styles.textStyle}>Fermer</Text>
+            </Pressable>
+
+
+          </View>
+        </View>
+      </Modal>
       <View style={styles.Quiz}>
 
       <View style={styles.case}>
@@ -698,5 +778,47 @@ buttonRepos: {
     borderColor: "rgb(245,123,123)",
     borderWidth: 2,
     borderRadius: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding:22,
+    backgroundColor:"rgba(0,0,0,0.4)"
+  },
+  modalView: {
+    backgroundColor: "rgb(68,73,123)",
+    borderRadius: 20,
+    padding: 15,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    flexDirection:"column",
+    justifyContent:"center",
+    flex:1,
+    width:"50%",
+    height:"40%"
+  },
+  buttonM: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "rgb(68,73,123)",
+    borderWidth:2,
+    borderColor:"rgb(245,123,123)",
+    marginTop:15
+    
+  },
+  textStyle: {
+    color: "rgb(245,123,123)",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily:"NotoSans"
   },
 });
