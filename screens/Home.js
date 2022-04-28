@@ -181,9 +181,18 @@ const widthPoids = counterPoids.interpolate({
       // Analyse du repas
       if(Orniny.variete.length > 3) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé + de 3 choses
       if(Orniny.variete.length < 2) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé - de 2 choses
-      if(nbEntree > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 3*nbEntree;
-      if(nbPlat > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbPlat;
-      if(nbDessert > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 7*nbDessert;
+      if(nbEntree > 1) {
+        Orniny.ptsPhysique = Orniny.ptsPhysique - 3*nbEntree;
+        Orniny.ptsMental = Orniny.ptsMental - 10*nbEntree ;
+      }
+      if(nbPlat > 1) {
+        Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbPlat;
+        Orniny.ptsMental = Orniny.ptsMental - 10*nbPlat ;
+      }
+      if(nbDessert > 1) {
+        Orniny.ptsPhysique = Orniny.ptsPhysique - 7*nbDessert;
+        Orniny.ptsMental = Orniny.ptsMental - 10*nbDessert ;
+      }
       if (nbPlat == 0) Orniny.ptsPhysique = Orniny.ptsPhysique - 20;
       if (Orniny.sasiete > 100) Orniny.ptsPhysique = Orniny.ptsPhysique - 20; // si Orniny a trop mangé
       // rectification des valeurs 
@@ -505,7 +514,9 @@ const widthPoids = counterPoids.interpolate({
     </DraxProvider>
     </GestureHandlerRootView>
   );
-}
+        }
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
