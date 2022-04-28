@@ -8,12 +8,12 @@ import { useEffect, useRef } from 'react';
 
 
 export default function SportScreen({ route, navigation }) {
-    let Orniny = route.params;
-    const [textD, setTextD] = React.useState('');
-    const [textKm, setTextKm] = React.useState('');
-    const [faitSport, setFaitSport] = React.useState(false);
+  let Orniny = route.params;
+  const [textD, setTextD] = React.useState('');
+  const [textKm, setTextKm] = React.useState('');
+  const [faitSport, setFaitSport] = React.useState(false);
 
-    const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
+  const [compteurPhy, setCompteurPhy] = React.useState(Orniny.sante);
   const [compteurMent, setCompteurMent] = React.useState(Orniny.bonheur);
   const [compteurSas, setCompteurSas] = React.useState(100 - Orniny.sasiete);
   const [compteurPoids, setCompteurPoids] = React.useState(Orniny.poids);
@@ -34,6 +34,7 @@ export default function SportScreen({ route, navigation }) {
       else if (nomSport == "Ping Pong") {
         varPhy = 5 + 0.25 * parseInt(textD);
         varMent = 2 + 0.25 * parseInt(textD);
+
     } 
     else if (nomSport == "Balle au prisonnier") {
         varPhy = 5 + 0.25 * parseInt(textD);
@@ -41,7 +42,9 @@ export default function SportScreen({ route, navigation }) {
     } ;
     Orniny.bonheur = Orniny.bonheur + varMent*0.01 ;
     Orniny.sante = Orniny.sante + varPhy*0.01 ;
+
     Orniny.poids = Orniny.poids - varPhy*0.01 ;
+
     setCompteurMent(Orniny.bonheur) ;
     setCompteurPhy(Orniny.sante) ;
     setCompteurPoids(Orniny.poids) ;
