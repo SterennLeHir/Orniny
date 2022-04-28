@@ -27,28 +27,24 @@ export default function SportScreen({ route, navigation }) {
   function sport(nomSport) {
       let varPhy = 0 ;
       let varMent = 0 ;
-      let varSas = 0 ;
       if (nomSport == "Course à pied") {
           varPhy = 10 + 0.5 * (parseInt(textD)*parseFloat(textKm)) ;
-          varMent = -5 - 0.25 * (parseInt(textD)*parseFloat(textKm));
-          varSas = -5 - 0.25 * (parseInt(textD)*parseFloat(textKm));
+          varMent = 3 + 0.25 * (parseInt(textD)*parseFloat(textKm));
       } 
       else if (nomSport == "Ping Pong") {
         varPhy = 5 + 0.25 * parseInt(textD);
-        varMent = -5 - 0.25 * parseInt(textD);
-        varSas = 0 ;
+        varMent = 2 + 0.25 * parseInt(textD);
     } 
     else if (nomSport == "Balle au prisonnier") {
         varPhy = 5 + 0.25 * parseInt(textD);
         varMent = 5 + 0.25 * parseInt(textD);
-        varSas = -5 - 0.25 * parseInt(textD);
     } ;
-    Orniny.bonheur = Orniny.bonheur + varMent*0.1 ;
-    Orniny.sante = Orniny.sante + varPhy*0.1 ;
-    Orniny.sasiete = Orniny.sasiete + varSas*0.1 ;
+    Orniny.bonheur = Orniny.bonheur + varMent*0.01 ;
+    Orniny.sante = Orniny.sante + varPhy*0.01 ;
+    Orniny.poids = Orniny.poids - varPhy*0.01 ;
     setCompteurMent(Orniny.bonheur) ;
     setCompteurPhy(Orniny.sante) ;
-    setCompteurSas(100 - Orniny.sasiete);
+    setCompteurPoids(Orniny.poids) ;
     setFaitSport(true) ;
   };
 
@@ -118,20 +114,7 @@ const [quelSport, setQuelSport] = React.useState('');
     <DraxProvider>
     
     <View style= {styles.container}>
-    {/* Barre latérale */}
-    {/*<View style={styles.bordureHaut}>
-    <View style={{flexGrow:1,height:'100%',justifyContent:'center',alignItems:'center',flexDirection: 'row'}}>
-        <Text style={[styles.titre,styles.vert]}>O</Text>
-        <Text style={[styles.titre,styles.bleu]}>r</Text>
-        <Text style={[styles.titre,styles.rouge]}>n</Text>
-        <Text style={[styles.titre,styles.jaune]}>i</Text>
-        <Text style={[styles.titre,styles.vert]}>n</Text>
-        <Text style={[styles.titre,styles.bleu]}>y</Text>
-    </View>
-    <View style={{height:"100%",position:"absolute",right:"2%"}}>
-    <MenuCool navigation= {navigation} params= {Orniny}/>
-    </View>
-    </View>*/}
+   
 
 <View style={styles.bordureHaut}>
       
@@ -216,7 +199,7 @@ const [quelSport, setQuelSport] = React.useState('');
         data = {[
             {key: "Course à pied", source: require('../assets/courseAPied.png')},
             {key: "Ping Pong", source: require('../assets/pingPong.png')},
-            {key: "Balle au prisonnier", source: require('../assets/BalleAuPrisonnier.png')},
+            {key: "Balle aux prisonniers", source: require('../assets/BalleAuPrisonnier.png')},
         ]}
         renderItem = {({item}) => 
         <TouchableHighlight style= {(quelSport == item.key) ? styles.caseSportActive : styles.caseSport} onPress={() => setQuelSport(item.key)} 

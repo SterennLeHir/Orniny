@@ -180,10 +180,19 @@ const widthPoids = counterPoids.interpolate({
     // Analyse du repas
     if(Orniny.variete.length > 3) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé + de 3 choses
     if(Orniny.variete.length < 2) Orniny.ptsPhysique = Orniny.ptsPhysique - 10; // si Orniny a mangé - de 2 choses
-    if(nbEntree > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 3*nbEntree;
-    if(nbPlat > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 7*nbPlat;
-    if(nbDessert > 1) Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbEntree;
-    if (nbPlat == 0) Orniny.ptsPhysique = Orniny.ptsPhysique - 10;
+    if(nbEntree > 1) {
+      Orniny.ptsPhysique = Orniny.ptsPhysique - 3*nbEntree;
+      Orniny.ptsMental = Orniny.ptsMental - 10*nbEntree ;
+    }
+    if(nbPlat > 1) {
+      Orniny.ptsPhysique = Orniny.ptsPhysique - 10*nbPlat;
+      Orniny.ptsMental = Orniny.ptsMental - 10*nbPlat ;
+    }
+    if(nbDessert > 1) {
+      Orniny.ptsPhysique = Orniny.ptsPhysique - 7*nbDessert;
+      Orniny.ptsMental = Orniny.ptsMental - 10*nbDessert ;
+    }
+    if (nbPlat == 0) Orniny.ptsPhysique = Orniny.ptsPhysique - 20;
     if (Orniny.sasiete > 100) Orniny.ptsPhysique = Orniny.ptsPhysique - 20; // si Orniny a trop mangé
     // rectification des valeurs 
     if (Orniny.ptsPhysique > 100) Orniny.ptsPhysique = 100;
@@ -225,24 +234,30 @@ const widthPoids = counterPoids.interpolate({
           Orniny.ptsMental -= 7;
         }
       }
+      if (Orniny.ptsPhysique <= 20 ){
+        if (Orniny.sasiete > 50) Orniny.poids += 2; 
+        else {
+          Orniny.poids -= 2;
+          Orniny.ptsMental -= 7;
+        }
+      }
     }
-    // Remise à 0 si nécessaire (pour les tests)
-    if (Orniny.sante >= 100) Orniny.sante = 0 ;
-    if (Orniny.bonheur >= 100) Orniny.bonheur = 0 ;
-    if (Orniny.sasiete >= 100) Orniny.sasiete = 0 ;
+    if (Orniny.sante >= 100) Orniny.sante = 100 ;
+    if (Orniny.bonheur >= 100) Orniny.bonheur = 100 ;
+    if (Orniny.sasiete >= 100) Orniny.sasiete = 100 ;
     // actualisation des compteurs
     if (Orniny.ptsPhysique >= 60){
       Orniny.sante = Orniny.sante + Orniny.ptsPhysique*0.1;
     }
     if (Orniny.ptsPhysique < 60){
-      Orniny.sante = Orniny.sante - (1 - Orniny.ptsPhysique)*0.1;
+      Orniny.sante = Orniny.sante - (100 - Orniny.ptsPhysique)*0.01;
     }
     if (Orniny.ptsMental >= 60){
       Orniny.bonheur = Orniny.bonheur + Orniny.ptsMental*0.1;
       
     }
     if (Orniny.ptsMental < 60){
-      Orniny.bonheur = Orniny.bonheur - (1 - Orniny.ptsMental)*0.1;
+      Orniny.bonheur = Orniny.bonheur - (100 - Orniny.ptsMental)*0.01;
       
     }
     if (Orniny.sante < 10) Orniny.bonheur -= 2; // Orniny ne peut être heureux s'il est en mauvaise santé
@@ -250,6 +265,10 @@ const widthPoids = counterPoids.interpolate({
     setCompteurPhy(Orniny.sante);
     setCompteurMent(Orniny.bonheur);
     setCompteurPoids(Orniny.poids);
+    Orniny.variete = [] ;
+    Orniny.ptsMental = 0 ;
+    Orniny.ptsPhysique = 0 ;
+    Orniny.sasiete = 0 ;
 
 
     if (Orniny.poids > 200) { setSpriteOrniny(OrninyObese) ; Orniny.image = OrninyObese ; }
